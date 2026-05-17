@@ -1,0 +1,27 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" rx="40" fill="#111827"/>
+<circle cx="1010" cy="120" r="90" fill="#67E8F9" fill-opacity="0.15"/>
+<circle cx="170" cy="570" r="110" fill="#F472B6" fill-opacity="0.16"/>
+<rect x="80" y="90" width="1040" height="540" rx="34" fill="#1F2937" stroke="#374151"/>
+<text x="110" y="145" fill="#FDF2F8" font-size="38" font-family="Arial" font-weight="700">AI Health Advisor</text>
+<rect x="120" y="190" width="340" height="390" rx="28" fill="#FDF2F8"/>
+<text x="165" y="245" fill="#BE185D" font-size="32" font-family="Arial" font-weight="700">Pet Context</text>
+<text x="155" y="300" fill="#6B7280" font-size="25" font-family="Arial">• breed</text>
+<text x="155" y="345" fill="#6B7280" font-size="25" font-family="Arial">• age</text>
+<text x="155" y="390" fill="#6B7280" font-size="25" font-family="Arial">• appetite / health</text>
+<text x="155" y="435" fill="#6B7280" font-size="25" font-family="Arial">• mood / social</text>
+<text x="155" y="500" fill="#9D174D" font-size="28" font-family="Arial" font-weight="700">中文优先 + fallback</text>
+<rect x="520" y="220" width="250" height="150" rx="26" fill="#7C3AED"/>
+<text x="596" y="286" fill="#FDF2F8" font-size="34" font-family="Arial" font-weight="700">Gemini</text>
+<text x="570" y="325" fill="#E9D5FF" font-size="24" font-family="Arial">smart prompt layer</text>
+<rect x="820" y="190" width="250" height="110" rx="24" fill="#0F766E"/>
+<text x="890" y="255" fill="#ECFEFF" font-size="30" font-family="Arial" font-weight="700">Advice</text>
+<rect x="820" y="325" width="250" height="110" rx="24" fill="#BE185D"/>
+<text x="892" y="390" fill="#FDF2F8" font-size="30" font-family="Arial" font-weight="700">Fallback</text>
+<rect x="820" y="460" width="250" height="110" rx="24" fill="#1D4ED8"/>
+<text x="873" y="525" fill="#EFF6FF" font-size="30" font-family="Arial" font-weight="700">Bilingual UX</text>
+<path d="M470 300H510" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M780 275H805" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M780 380H805" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M780 515H805" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+</svg>

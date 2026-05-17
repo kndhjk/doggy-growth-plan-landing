@@ -1,0 +1,26 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" rx="40" fill="#111827"/>
+<rect x="70" y="90" width="1060" height="540" rx="34" fill="#1F2937" stroke="#374151"/>
+<text x="100" y="145" fill="#FDF2F8" font-size="38" font-family="Arial" font-weight="700">Community + Map + Matchmaking</text>
+<rect x="110" y="200" width="300" height="360" rx="26" fill="#FDF2F8"/>
+<text x="165" y="250" fill="#9D174D" font-size="31" font-family="Arial" font-weight="700">Community Feed</text>
+<rect x="145" y="285" width="230" height="72" rx="18" fill="#FCE7F3"/>
+<rect x="145" y="375" width="230" height="72" rx="18" fill="#FCE7F3"/>
+<rect x="145" y="465" width="230" height="72" rx="18" fill="#FCE7F3"/>
+<text x="180" y="330" fill="#BE185D" font-size="24">🐾 post · like · comment</text>
+<text x="182" y="420" fill="#BE185D" font-size="24">💗 tear / heart / paw</text>
+<text x="182" y="510" fill="#BE185D" font-size="24">🐶 diary from dog view</text>
+<rect x="470" y="200" width="290" height="360" rx="26" fill="#DBEAFE"/>
+<text x="555" y="250" fill="#1D4ED8" font-size="31" font-family="Arial" font-weight="700">Pet Map</text>
+<path d="M555 320C555 285 583 257 618 257C653 257 681 285 681 320C681 371 618 435 618 435C618 435 555 371 555 320Z" fill="#F43F5E"/>
+<circle cx="618" cy="320" r="26" fill="#FDF2F8"/>
+<text x="520" y="485" fill="#1E3A8A" font-size="24">Google Places + check-in</text>
+<rect x="820" y="200" width="260" height="360" rx="26" fill="#27272A"/>
+<text x="872" y="250" fill="#FDF2F8" font-size="31" font-family="Arial" font-weight="700">Matching</text>
+<text x="878" y="330" fill="#F9A8D4" font-size="64">🐕</text>
+<text x="945" y="330" fill="#67E8F9" font-size="64">💘</text>
+<text x="878" y="430" fill="#E5E7EB" font-size="24">like · skip</text>
+<text x="858" y="470" fill="#E5E7EB" font-size="24">breed / location filter</text>
+<path d="M416 380H454" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M766 380H804" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" rx="40" fill="#111827"/>
+<circle cx="190" cy="120" r="90" fill="#F472B6" fill-opacity="0.18"/>
+<circle cx="1030" cy="160" r="120" fill="#C084FC" fill-opacity="0.14"/>
+<rect x="70" y="100" width="1060" height="520" rx="30" fill="#1F2937" stroke="#374151"/>
+<text x="100" y="150" fill="#FDF2F8" font-size="38" font-family="Arial" font-weight="700">Digital Pet Growth Flow</text>
+<rect x="100" y="200" width="280" height="340" rx="26" fill="#FDF2F8"/>
+<circle cx="240" cy="300" r="78" fill="#FCE7F3"/>
+<text x="196" y="320" fill="#BE185D" font-size="72">🐶</text>
+<text x="150" y="430" fill="#9D174D" font-size="30" font-family="Arial" font-weight="700">Create Pet</text>
+<text x="128" y="472" fill="#6B7280" font-size="24" font-family="Arial">name · breed · birthday</text>
+<rect x="460" y="190" width="280" height="160" rx="22" fill="#312E81"/>
+<text x="503" y="245" fill="#FDF2F8" font-size="30" font-family="Arial" font-weight="700">Status Dashboard</text>
+<text x="510" y="290" fill="#E9D5FF" font-size="22" font-family="Arial">appetite · health</text>
+<text x="510" y="322" fill="#E9D5FF" font-size="22" font-family="Arial">mood · social</text>
+<rect x="460" y="380" width="280" height="160" rx="22" fill="#1D4ED8"/>
+<text x="525" y="438" fill="#FDF2F8" font-size="30" font-family="Arial" font-weight="700">Time Decay</text>
+<text x="505" y="482" fill="#DBEAFE" font-size="22" font-family="Arial">state changes over time</text>
+<rect x="820" y="200" width="270" height="340" rx="24" fill="#3F3F46"/>
+<text x="865" y="245" fill="#FDF2F8" font-size="30" font-family="Arial" font-weight="700">Cross-device</text>
+<rect x="872" y="285" width="90" height="170" rx="18" fill="#FDF2F8"/>
+<rect x="980" y="300" width="70" height="130" rx="14" fill="#FDF2F8" fill-opacity="0.92"/>
+<text x="894" y="382" fill="#BE185D" font-size="42">📱</text>
+<text x="994" y="375" fill="#BE185D" font-size="30">💻</text>
+<text x="858" y="500" fill="#E5E7EB" font-size="22" font-family="Arial">Firestore + local fallback</text>
+<path d="M390 320H440" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M740 320H790" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+<path d="M600 350V368" stroke="#F9A8D4" stroke-width="12" stroke-linecap="round"/>
+</svg>
