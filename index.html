@@ -69,6 +69,7 @@
     .speaker{position:relative;overflow:hidden}
     .speaker::after{content:"";position:absolute;right:-30px;bottom:-30px;width:150px;height:150px;border-radius:999px;background:radial-gradient(circle, rgba(244,114,182,.14), transparent 68%)}
     .speaker-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#f9a8d4;font-size:12px;font-weight:900;margin-bottom:12px}
+    .speaker-tag.star{background:linear-gradient(135deg,rgba(244,114,182,.22),rgba(192,132,252,.24));color:#fff;border:1px solid rgba(249,168,212,.35);box-shadow:0 0 28px rgba(244,114,182,.16)}
     .mini-tags span,.team-tags span{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);font-size:13px;color:#fff}
     .timeline{padding:18px}
     .timeline .time{font-size:30px;font-weight:950;color:#fff;margin-bottom:10px}
@@ -88,6 +89,27 @@
     .mini-card{background:#fff;border:1px solid #fbcfe8;border-radius:16px;padding:12px;margin-top:10px;box-shadow:0 8px 18px rgba(244,114,182,.08)}
     .mini-title{font-size:15px;font-weight:800;color:#9d174d;margin-bottom:8px}
     .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.pill-row span{font-size:11px;padding:6px 9px;border-radius:999px;background:#fdf2f8;border:1px solid #fbcfe8;color:#be185d}
+    .ming-hero{position:relative;overflow:hidden}
+    .ming-hero::before{content:"";position:absolute;inset:-10% 35% auto -12%;height:220px;background:radial-gradient(circle, rgba(244,114,182,.24), transparent 70%);pointer-events:none}
+    .ming-hero::after{content:"";position:absolute;inset:auto -8% -18% 52%;height:220px;background:radial-gradient(circle, rgba(103,232,249,.16), transparent 70%);pointer-events:none}
+    .system-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+    .flow-box{padding:18px;border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);position:relative;overflow:hidden}
+    .flow-box strong{display:block;font-size:18px;color:#fff;margin-bottom:8px}
+    .flow-box span{font-size:13px;color:#fbcfe8;line-height:1.6;display:block}
+    .flow-box::after{content:"";position:absolute;right:-18px;bottom:-18px;width:90px;height:90px;border-radius:999px;background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%)}
+    .pulse-line{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:#fff}
+    .pulse-dot{width:10px;height:10px;border-radius:999px;background:#34d399;box-shadow:0 0 0 rgba(52,211,153,.5);animation:pulseDot 1.8s ease-out infinite}
+    .live-board{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:18px}
+    .social-wall{padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.06));border:1px solid rgba(249,168,212,.18)}
+    .post{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.92);color:#6b2149;margin-top:12px;box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    .post:first-child{margin-top:0}
+    .post-meta{font-size:12px;color:#9d174d;font-weight:800;margin-bottom:6px}
+    .post-reactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .post-reactions span{font-size:11px;padding:6px 8px;border-radius:999px;background:#fdf2f8;border:1px solid #fbcfe8;color:#be185d}
+    .match-stack{display:grid;gap:14px}
+    .match-card-live{padding:16px;border-radius:24px;background:linear-gradient(135deg,#fff7fb,#ffe8f5);color:#6b2149;border:1px solid #fbcfe8;box-shadow:0 16px 34px rgba(244,114,182,.12)}
+    .big-emoji{font-size:52px;line-height:1;margin-bottom:8px}
+    .highlight-ring{outline:1px solid rgba(249,168,212,.25);box-shadow:0 0 0 1px rgba(249,168,212,.08),0 30px 80px rgba(244,114,182,.16)}
     .floating{animation:floaty 5.2s ease-in-out infinite}
     .floating-slow{animation:floaty 7s ease-in-out infinite}
     .glow{animation:glowPulse 3.2s ease-in-out infinite}
@@ -103,6 +125,7 @@
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     @keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(244,114,182,0)}50%{box-shadow:0 0 28px rgba(244,114,182,.18)}}
     @keyframes shimmer{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
+    @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 12px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
 
     @media (max-width: 980px){
       #topbar{height:auto;min-height:56px;flex-wrap:wrap;padding:10px 12px}
@@ -111,7 +134,7 @@
       .right{width:100%;justify-content:space-between;flex-wrap:wrap}
       .jump{max-width:none;flex:1 1 100%}
       .slide{padding:20px 14px 30px}
-      .hero,.grid2,.grid3,.grid4,.mock-grid{grid-template-columns:1fr}
+      .hero,.grid2,.grid3,.grid4,.mock-grid,.system-flow,.live-board{grid-template-columns:1fr}
       h1{font-size:36px}
       h2{font-size:28px}
       .lead{font-size:16px}
@@ -338,8 +361,8 @@
     </section>
 
     <section class="slide" id="s6">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Ming Zhao · Slide 1</div>
+      <div class="wrap ming-hero">
+        <div class="speaker-tag star">👤 Ming Zhao · Slide 1 · System Orchestrator</div>
         <h2 data-cn="整体架构：把多个功能接成一个系统" data-en="System architecture: connecting features into one product">整体架构：把多个功能接成一个系统</h2>
         <div class="grid4">
           <div class="timeline"><div class="time">Frontend</div><p class="sub">React · Router · Motion</p></div>
@@ -349,14 +372,21 @@
         </div>
         <div class="panel" style="margin-top:18px">
           <p class="lead" data-cn="这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。" data-en="The goal here is not just to list many technologies, but to explain why this architecture lets the pet system, AI, map, and community modules work together.">这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。</p>
+          <div class="pulse-line"><span class="pulse-dot"></span><span data-cn="Live view：pet state → AI → community → map → deployment 都在同一条系统链路里" data-en="Live view: pet state → AI → community → map → deployment all live in one connected system chain">Live view：pet state → AI → community → map → deployment 都在同一条系统链路里</span></div>
+        </div>
+        <div class="system-flow">
+          <div class="flow-box highlight-ring floating"><strong data-cn="用户入口" data-en="User entry">用户入口</strong><span data-cn="登录、创建宠物、进入主页" data-en="login, create a pet, enter the home screen">登录、创建宠物、进入主页</span></div>
+          <div class="flow-box highlight-ring floating-slow"><strong data-cn="状态中枢" data-en="State hub">状态中枢</strong><span data-cn="PetContext / Firestore / local fallback" data-en="PetContext / Firestore / local fallback">PetContext / Firestore / local fallback</span></div>
+          <div class="flow-box highlight-ring floating"><strong data-cn="外部能力" data-en="External capabilities">外部能力</strong><span data-cn="Gemini、Google Places、serverless API" data-en="Gemini, Google Places, serverless APIs">Gemini、Google Places、serverless API</span></div>
+          <div class="flow-box highlight-ring floating-slow"><strong data-cn="最终体验" data-en="Final experience">最终体验</strong><span data-cn="AI 建议、社区互动、地图场景、稳定部署" data-en="AI advice, community interaction, map scenarios, and stable deployment">AI 建议、社区互动、地图场景、稳定部署</span></div>
         </div>
         <div class="talk"><strong data-cn="这一段可以这样表达：" data-en="One clean way to phrase it is:">这一段可以这样表达：</strong><span data-cn=" 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。" data-en=" We separated frontend interaction, user state, external APIs, and deployment, but they all serve the same product flow, so the result is not a pile of disconnected features."> 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。</span></div>
       </div>
     </section>
 
     <section class="slide" id="s7">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Ming Zhao · Slide 2</div>
+      <div class="wrap ming-hero">
+        <div class="speaker-tag star">👤 Ming Zhao · Slide 2 · Live Social Layer</div>
         <h2 data-cn="Community / Matchmaking / Chat / Achievements" data-en="Community / Matchmaking / Chat / Achievements">Community / Matchmaking / Chat / Achievements</h2>
         <div class="grid2">
           <div class="panel">
@@ -374,6 +404,34 @@
         </div>
         <div class="visual floating-slow" style="margin-top:18px">
           <img src="assets/slides/social-map.svg" alt="Community, map, and matchmaking illustration">
+        </div>
+        <div class="live-board">
+          <div class="social-wall highlight-ring shimmer">
+            <h3 data-cn="Live Community Feed" data-en="Live Community Feed">Live Community Feed</h3>
+            <div class="post floating">
+              <div class="post-meta">Luna · 2 min ago</div>
+              <div data-cn="今天遛弯打卡成功，还认识了一只新的边牧朋友。" data-en="Walk check-in completed today, and Luna met a new border collie friend.">今天遛弯打卡成功，还认识了一只新的边牧朋友。</div>
+              <div class="post-reactions"><span>❤️ 24</span><span>🐾 11</span><span>💧 3</span></div>
+            </div>
+            <div class="post floating-slow">
+              <div class="post-meta">System reaction</div>
+              <div data-cn="social +4 · mood +2 已同步回宠物状态面板" data-en="social +4 · mood +2 synced back to the pet status dashboard">social +4 · mood +2 已同步回宠物状态面板</div>
+              <div class="post-reactions"><span>Firestore sync</span><span>live update</span></div>
+            </div>
+          </div>
+          <div class="match-stack">
+            <div class="match-card-live floating highlight-ring">
+              <div class="big-emoji">💘</div>
+              <div class="mini-title">Pet Matchmaking</div>
+              <div data-cn="Breed: Corgi · Location: Auckland · Swipe-like flow" data-en="Breed: Corgi · Location: Auckland · Swipe-like flow">Breed: Corgi · Location: Auckland · Swipe-like flow</div>
+              <div class="pill-row"><span>like</span><span>skip</span><span>breed filter</span><span>location filter</span></div>
+            </div>
+            <div class="match-card-live floating-slow">
+              <div class="big-emoji">🏆</div>
+              <div class="mini-title">Achievement Wall</div>
+              <div data-cn="社区行为不只是展示，还会反过来推动奖励、成就和宠物成长。" data-en="Community behavior is not just displayed; it also drives rewards, achievements, and pet growth.">社区行为不只是展示，还会反过来推动奖励、成就和宠物成长。</div>
+            </div>
+          </div>
         </div>
         <div class="mock-grid" style="margin-top:18px">
           <div class="browser floating">
