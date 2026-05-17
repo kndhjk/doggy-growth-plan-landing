@@ -3,352 +3,435 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doggy Growth Plan 🐾</title>
+  <title>Doggy Growth Plan · CS732 Demo</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%);
-      min-height: 100vh;
-      color: #4a0550;
+    :root{
+      --bg:#fff7fb;
+      --bg2:#ffe6f3;
+      --card:#ffffff;
+      --line:#f9c7de;
+      --text:#5b0d34;
+      --muted:#8f4a6d;
+      --pink:#ec4899;
+      --pink2:#fb7185;
+      --purple:#a855f7;
+      --shadow:0 18px 50px rgba(236,72,153,.14);
     }
-
-    .lang-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 8px;
-      z-index: 100;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(251,113,133,.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(168,85,247,.12), transparent 24%),
+        linear-gradient(180deg, #fff8fc 0%, #fff1f7 100%);
+      line-height:1.6;
     }
-
-    .lang-toggle button {
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 2px solid #f9a8d4;
-      background: white;
-      color: #be185d;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 14px;
+    a{color:inherit}
+    .lang-toggle{
+      position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:8px;
+      background:rgba(255,255,255,.82);backdrop-filter:blur(12px);padding:6px;border:1px solid rgba(249,167,212,.6);border-radius:999px;
+      box-shadow:0 10px 30px rgba(236,72,153,.12);
     }
-
-    .lang-toggle button.active {
-      background: linear-gradient(135deg, #f472b6, #fb7185);
-      color: white;
-      border-color: transparent;
+    .lang-toggle button{
+      border:none;background:transparent;color:var(--muted);padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer;font-size:13px;
     }
-
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 60px 24px 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 40px;
+    .lang-toggle button.active{background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff}
+    .page{max-width:1180px;margin:0 auto;padding:88px 20px 56px}
+    .hero{
+      display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:stretch;margin-bottom:24px;
     }
-
-    .hero {
-      text-align: center;
+    .panel{
+      background:rgba(255,255,255,.88);border:1px solid rgba(249,167,212,.55);border-radius:28px;padding:28px;box-shadow:var(--shadow);
     }
+    .hero-main{padding:34px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff0f7;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;color:var(--pink);letter-spacing:.04em;text-transform:uppercase}
+    h1{font-size:52px;line-height:1.02;margin:16px 0 14px;font-weight:950;letter-spacing:-.03em}
+    .gradient{background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:18px;color:var(--muted);max-width:720px}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .pill{padding:9px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:800;color:var(--text)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:16px;text-decoration:none;font-weight:900;font-size:15px;border:1px solid transparent}
+    .btn.primary{background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;box-shadow:0 12px 26px rgba(236,72,153,.28)}
+    .btn.ghost{background:#fff;color:var(--pink);border-color:var(--line)}
+    .hero-side{display:flex;flex-direction:column;gap:16px}
+    .qr-card{text-align:center}
+    .qr-card img{width:190px;max-width:100%;border-radius:18px;border:4px solid #fff4fa;box-shadow:0 10px 26px rgba(236,72,153,.14)}
+    .tiny{font-size:12px;color:#a16a86;word-break:break-all}
+    .score-card h3,.qr-card h3,.section-title{font-size:22px;font-weight:900;margin-bottom:8px}
+    .score-grid,.stats-grid,.rubric-grid,.feature-grid,.speaker-grid,.architecture-grid{display:grid;gap:16px}
+    .score-grid{grid-template-columns:repeat(2,1fr)}
+    .score-item,.feature-card,.speaker-card,.arch-card,.rubric-card,.credit-card,.timeline-card{background:#fff;border:1px solid #f9d5e6;border-radius:22px;padding:20px;box-shadow:0 10px 24px rgba(236,72,153,.08)}
+    .score-item .big{font-size:30px;font-weight:950;line-height:1;color:var(--pink)}
+    .section{margin-top:24px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:14px}
+    .section-head p{color:var(--muted);max-width:720px}
+    .speaker-grid{grid-template-columns:repeat(5,1fr)}
+    .speaker-card{position:relative;overflow:hidden}
+    .speaker-card::after{content:"";position:absolute;inset:auto -10% -35% auto;width:120px;height:120px;border-radius:999px;background:radial-gradient(circle, rgba(251,113,133,.18), transparent 70%)}
+    .slot{display:inline-block;padding:6px 10px;border-radius:999px;background:#fff0f7;color:var(--pink);font-weight:900;font-size:12px;margin-bottom:10px}
+    .speaker-card h3{font-size:20px;line-height:1.15;margin-bottom:4px}
+    .role{font-size:13px;font-weight:800;color:var(--purple);margin-bottom:12px}
+    .speaker-card ul{padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:7px}
+    .speaker-card .minute{margin-top:14px;padding-top:12px;border-top:1px dashed #f7bfd7;font-size:13px;font-weight:800;color:var(--text)}
+    .credit-strip{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .credit-card h3{font-size:18px;margin-bottom:8px}
+    .feature-grid{grid-template-columns:repeat(3,1fr)}
+    .feature-card h3,.arch-card h3,.rubric-card h3,.timeline-card h3{font-size:18px;margin-bottom:8px}
+    .feature-card p,.arch-card p,.rubric-card p,.credit-card p,.timeline-card p{color:var(--muted);font-size:14px}
+    .feature-card ul,.arch-card ul,.rubric-card ul{padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:6px;margin-top:10px}
+    .architecture-grid{grid-template-columns:repeat(4,1fr)}
+    .rubric-grid{grid-template-columns:repeat(3,1fr)}
+    .timeline-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+    .timeline-card .time{font-size:28px;font-weight:950;color:var(--pink);line-height:1;margin-bottom:10px}
+    .footer{padding:26px 0 8px;text-align:center;color:#a16a86;font-size:12px}
+    .muted-list{padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:6px}
 
-    .hero-icon {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 24px;
-      filter: drop-shadow(0 8px 24px rgba(244, 114, 182, 0.4));
+    @media (max-width: 1100px){
+      .speaker-grid{grid-template-columns:repeat(2,1fr)}
+      .architecture-grid,.rubric-grid,.feature-grid,.timeline-wrap{grid-template-columns:repeat(2,1fr)}
     }
-
-    .hero h1 {
-      font-size: 36px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #be185d, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
+    @media (max-width: 860px){
+      .page{padding:82px 14px 48px}
+      .hero,.credit-strip{grid-template-columns:1fr}
+      h1{font-size:38px}
+      .lead{font-size:16px}
     }
-
-    .hero p {
-      font-size: 16px;
-      color: #9d174d;
-      line-height: 1.7;
-      max-width: 400px;
-      margin: 0 auto;
+    @media (max-width: 640px){
+      .lang-toggle{top:12px;right:12px}
+      .panel,.hero-main{padding:22px 18px}
+      h1{font-size:32px}
+      .speaker-grid,.architecture-grid,.rubric-grid,.feature-grid,.timeline-wrap,.score-grid{grid-template-columns:1fr}
+      .btn{width:100%}
     }
-
-    .qr-section {
-      background: white;
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 8px 40px rgba(244, 114, 182, 0.18);
-      text-align: center;
-      width: 100%;
-      max-width: 360px;
-    }
-
-    .qr-section h2 {
-      font-size: 20px;
-      color: #be185d;
-      margin-bottom: 20px;
-      font-weight: 800;
-    }
-
-    .qr-img {
-      width: 200px;
-      height: 200px;
-      border-radius: 16px;
-      border: 4px solid #fce7f3;
-    }
-
-    .qr-url {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #9ca3af;
-      word-break: break-all;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      width: 100%;
-    }
-
-    .feature-card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 16px rgba(244, 114, 182, 0.1);
-      transition: transform 0.2s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    .feature-card h3 {
-      font-size: 15px;
-      color: #be185d;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .feature-card p {
-      font-size: 12px;
-      color: #9ca3af;
-      line-height: 1.5;
-    }
-
-    .team {
-      background: white;
-      border-radius: 20px;
-      padding: 28px 24px;
-      width: 100%;
-      max-width: 480px;
-      box-shadow: 0 4px 20px rgba(244, 114, 182, 0.12);
-    }
-
-    .team h2 {
-      text-align: center;
-      font-size: 18px;
-      color: #be185d;
-      margin-bottom: 20px;
-      font-weight: 800;
-    }
-
-    .team-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .team-tag {
-      background: linear-gradient(135deg, #fdf2f8, #fce7f3);
-      border: 1px solid #f9a8d4;
-      color: #be185d;
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .tech-badge {
-      background: #be185d;
-      color: white;
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .github-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #f472b6, #fb7185);
-      color: white;
-      text-decoration: none;
-      padding: 14px 32px;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 6px 20px rgba(244, 114, 182, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .github-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(244, 114, 182, 0.5);
-    }
-
-    .footer {
-      font-size: 12px;
-      color: #f9a8d4;
-      text-align: center;
-    }
-
-    /* 中文/英文 各自内容 */
-    [data-lang="zh"] .en-only,
-    [data-lang="en"] .zh-only { display: none; }
-    [data-lang="zh"] .zh-only { display: block; }
-
-    /* 英文模式下英文内容 */
-    [data-lang="en"] .zh-only { display: none; }
-    [data-lang="en"] .en-only { display: block; }
   </style>
 </head>
-<body data-lang="zh">
-
+<body>
   <div class="lang-toggle">
     <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
     <button id="btn-en" onclick="setLang('en')">EN</button>
   </div>
 
-  <div class="container">
-
-    <!-- Hero -->
-    <div class="hero">
-      <img class="hero-icon" src="https://raw.githubusercontent.com/kndhjk/doggy-growth-plan/main/GG%20Bond.png" alt="GG Bond" onerror="this.style.display='none'">
-      <h1>Doggy Growth Plan</h1>
-      <p class="zh-only">虚拟宠物成长平台，实时追踪狗狗的水分、心情、健康与社交状态，用 AI 智能顾问守护它的每一天。</p>
-      <p class="en-only">A virtual pet growth platform — track your dog's hydration, mood, health and social needs in real time, powered by an AI health advisor.</p>
-    </div>
-
-    <!-- QR Code -->
-    <div class="qr-section">
-      <h2 class="zh-only">扫码访问</h2>
-      <h2 class="en-only">Scan to Visit</h2>
-      <img class="qr-img"
-        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://4.155.227.179&margin=10&format=png"
-        alt="QR Code">
-      <div class="qr-url">http://4.155.227.179</div>
-    </div>
-
-    <!-- Features -->
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">💧</div>
-        <h3 class="zh-only">实时状态追踪</h3>
-        <h3 class="en-only">Real-time Status</h3>
-        <p class="zh-only">水分、食欲、心情、健康、社交五维实时监测</p>
-        <p class="en-only">5-dimension tracking: appetite, hydration, mood, health & social</p>
+  <div class="page">
+    <section class="hero">
+      <div class="panel hero-main">
+        <div class="eyebrow" data-zh="CS732 Group Project Seminar" data-en="CS732 Group Project Seminar">CS732 Group Project Seminar</div>
+        <h1>
+          <span class="gradient">Doggy Growth Plan</span><br>
+          <span data-zh="15 分钟在线演示版" data-en="15-minute online demo edition">15-minute online demo edition</span>
+        </h1>
+        <p class="lead" data-zh="一个把数字宠物成长、AI 健康建议、地图探索、社区互动和扩展生活服务放进同一条体验链路里的狗狗陪伴平台。这个页面已经按 5 位上台成员 × 每人 3 分钟重排，并保留中英文切换。" data-en="A dog companionship platform that connects digital pet growth, AI health advice, map exploration, community interaction, and extended lifestyle services in one user journey. This page has been restructured for 5 speakers × 3 minutes each, with bilingual switching built in.">一个把数字宠物成长、AI 健康建议、地图探索、社区互动和扩展生活服务放进同一条体验链路里的狗狗陪伴平台。这个页面已经按 5 位上台成员 × 每人 3 分钟重排，并保留中英文切换。</p>
+        <div class="hero-meta">
+          <span class="pill" data-zh="总时长：15 分钟" data-en="Total time: 15 minutes">总时长：15 分钟</span>
+          <span class="pill" data-zh="5 位讲者 × 3 分钟" data-en="5 speakers × 3 minutes">5 位讲者 × 3 分钟</span>
+          <span class="pill" data-zh="现场：May 22 · 4pm · Library B28" data-en="Seminar: May 22 · 4pm · Library B28">现场：May 22 · 4pm · Library B28</span>
+          <span class="pill" data-zh="中英双语" data-en="Chinese + English">中英双语</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="http://4.155.227.179" target="_blank" rel="noreferrer">
+            <span>🚀</span><span data-zh="打开在线 Demo" data-en="Open live demo">打开在线 Demo</span>
+          </a>
+          <a class="btn ghost" href="https://github.com/UOA-CS732-S1-2026/group-project-gg-bond" target="_blank" rel="noreferrer">
+            <span>🐙</span><span data-zh="查看项目仓库" data-en="View project repo">查看项目仓库</span>
+          </a>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h3 class="zh-only">AI 健康顾问</h3>
-        <h3 class="en-only">AI Health Advisor</h3>
-        <p class="zh-only">Groq LLM 驱动，专注宠物健康问答</p>
-        <p class="en-only">Groq LLM-powered, pet health Q&A</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛁</div>
-        <h3 class="zh-only">智能互动</h3>
-        <h3 class="en-only">Smart Interactions</h3>
-        <p class="zh-only">喂食、喝水、洗澡、遛弯，一键记录</p>
-        <p class="en-only">Feed, walk, bathe — one tap to log</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌍</div>
-        <h3 class="zh-only">社区 & 地图</h3>
-        <h3 class="en-only">Community & Map</h3>
-        <p class="zh-only">宠物社区分享 & Google Maps 探索</p>
-        <p class="en-only">Community sharing & Google Maps discovery</p>
-      </div>
-    </div>
 
-    <!-- Tech Stack -->
-    <div>
-      <div class="tech-stack">
-        <span class="tech-badge">React</span>
-        <span class="tech-badge">Vite</span>
-        <span class="tech-badge">Tailwind CSS</span>
-        <span class="tech-badge">Firebase</span>
-        <span class="tech-badge">Groq LLM</span>
-        <span class="tech-badge">Google Maps</span>
-        <span class="tech-badge">Vercel</span>
+      <div class="hero-side">
+        <div class="panel qr-card">
+          <h3 data-zh="扫码进入演示" data-en="Scan to enter the demo">扫码进入演示</h3>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=http://4.155.227.179&margin=10&format=png" alt="QR Code">
+          <p class="tiny" style="margin-top:12px">http://4.155.227.179</p>
+        </div>
+        <div class="panel score-card">
+          <h3 data-zh="这版演示重点" data-en="What this version optimizes">这版演示重点</h3>
+          <div class="score-grid">
+            <div class="score-item">
+              <div class="big">5</div>
+              <p data-zh="位主讲人" data-en="speakers">位主讲人</p>
+            </div>
+            <div class="score-item">
+              <div class="big">15</div>
+              <p data-zh="分钟内讲完" data-en="minutes max">分钟内讲完</p>
+            </div>
+            <div class="score-item">
+              <div class="big">4+</div>
+              <p data-zh="核心产品链路" data-en="core product flows">核心产品链路</p>
+            </div>
+            <div class="score-item">
+              <div class="big">A</div>
+              <p data-zh="对准 rubric 讲" data-en="rubric-aligned story">对准 rubric 讲</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Team -->
-    <div class="team">
-      <h2>CS732 · Team GG Bond</h2>
-      <div class="team-list">
-        <span class="team-tag">Huanhuan Li</span>
-        <span class="team-tag">Jiayi Lyu</span>
-        <span class="team-tag">Xiang Zhang</span>
-        <span class="team-tag">Ming Zhao</span>
-        <span class="team-tag">Xingyan Zhou</span>
-        <span class="team-tag">Kejun Xu</span>
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" data-zh="15 分钟讲法：5 人分工" data-en="15-minute speaking plan: 5 presenters">15 分钟讲法：5 人分工</h2>
+          <p data-zh="这里按“先核心体验、再 AI、再社区与地图、最后扩展能力”来排，保证每人 3 分钟左右，不超时。" data-en="The order goes from core pet experience to AI, then community/map, and ends with expanded features—so each presenter can stay close to 3 minutes without overrunning.">这里按“先核心体验、再 AI、再社区与地图、最后扩展能力”来排，保证每人 3 分钟左右，不超时。</p>
+        </div>
       </div>
-    </div>
 
-    <!-- GitHub -->
-    <a class="github-link" href="https://github.com/kndhjk/doggy-growth-plan" target="_blank">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-      </svg>
-      <span class="zh-only">查看源码</span>
-      <span class="en-only">View Source</span>
-    </a>
+      <div class="speaker-grid">
+        <article class="speaker-card">
+          <div class="slot">01 · 0:00–3:00</div>
+          <h3>Huanhuan Li</h3>
+          <div class="role" data-zh="Digital Pet Growth + 数据持久化" data-en="Digital Pet Growth + data persistence">Digital Pet Growth + 数据持久化</div>
+          <ul>
+            <li data-zh="从创建宠物开始：breed / birthday / name 流程" data-en="Start from pet creation: breed / birthday / name flow">从创建宠物开始：breed / birthday / name 流程</li>
+            <li data-zh="展示 4 状态仪表盘和 timestamp decay" data-en="Show the 4-status dashboard and timestamp decay">展示 4 状态仪表盘和 timestamp decay</li>
+            <li data-zh="头像生命周期切换、照片上传、宠物档案编辑" data-en="Avatar life-stage switching, photo upload, and pet profile editing">头像生命周期切换、照片上传、宠物档案编辑</li>
+            <li data-zh="点明 MySQL schema 与跨设备共享 API" data-en="Briefly mention the MySQL schema and cross-device shared APIs">点明 MySQL schema 与跨设备共享 API</li>
+          </ul>
+          <div class="minute" data-zh="建议收尾：这不是单页 UI，而是一个会随时间变化的数字宠物系统。" data-en="Suggested close: this is not a static page—it is a time-evolving digital pet system.">建议收尾：这不是单页 UI，而是一个会随时间变化的数字宠物系统。</div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="slot">02 · 3:00–6:00</div>
+          <h3>Xingyan Zhou</h3>
+          <div class="role" data-zh="AI Health Advisor" data-en="AI Health Advisor">AI Health Advisor</div>
+          <ul>
+            <li data-zh="展示 AI 聊天页、消息流和输入区" data-en="Show the AI chat page, message stream, and input area">展示 AI 聊天页、消息流和输入区</li>
+            <li data-zh="解释 Gemini 调用层和 pet-context prompt 注入" data-en="Explain the Gemini call layer and pet-context prompt injection">解释 Gemini 调用层和 pet-context prompt 注入</li>
+            <li data-zh="强调 smart prompt：根据当前状态推问题" data-en="Highlight smart prompts based on the pet’s current state">强调 smart prompt：根据当前状态推问题</li>
+            <li data-zh="说明中文优先 + 双语 fallback + 本地降级响应" data-en="Cover Chinese-first responses, bilingual fallback, and local offline fallback">说明中文优先 + 双语 fallback + 本地降级响应</li>
+          </ul>
+          <div class="minute" data-zh="建议收尾：AI 不是悬空聊天，而是吃进宠物状态做个性化建议。" data-en="Suggested close: the AI is not generic chat—it uses live pet state for personalized guidance.">建议收尾：AI 不是悬空聊天，而是吃进宠物状态做个性化建议。</div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="slot">03 · 6:00–9:00</div>
+          <h3>Ming Zhao</h3>
+          <div class="role" data-zh="Architecture + Community / Matchmaking + Deployment" data-en="Architecture + Community / Matchmaking + Deployment">Architecture + Community / Matchmaking + Deployment</div>
+          <ul>
+            <li data-zh="讲整体架构：React 前端 + Firebase + Express / serverless API" data-en="Explain the architecture: React frontend + Firebase + Express / serverless APIs">讲整体架构：React 前端 + Firebase + Express / serverless API</li>
+            <li data-zh="演示社区发帖、点赞、评论、狗视角日记" data-en="Demo community posts, likes, comments, and dog-perspective diary posts">演示社区发帖、点赞、评论、狗视角日记</li>
+            <li data-zh="点 Firestore 实时同步、情绪反应联动 pet dashboard" data-en="Point out Firestore real-time sync and emotion reactions linked to the pet dashboard">点 Firestore 实时同步、情绪反应联动 pet dashboard</li>
+            <li data-zh="再带到 matchmaking、chat、achievement wall 和 Render + Vercel 部署" data-en="Then move to matchmaking, chat, the achievement wall, and Render + Vercel deployment">再带到 matchmaking、chat、achievement wall 和 Render + Vercel 部署</li>
+          </ul>
+          <div class="minute" data-zh="建议收尾：我们做的不只是养宠页面，而是一个可在线互动的宠物社交系统。" data-en="Suggested close: this is not just a pet page—it is an online interactive pet social system.">建议收尾：我们做的不只是养宠页面，而是一个可在线互动的宠物社交系统。</div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="slot">04 · 9:00–12:00</div>
+          <h3>Xiang Zhang</h3>
+          <div class="role" data-zh="External APIs + Map full stack + visual assets" data-en="External APIs + full-stack map + visual assets">External APIs + Map full stack + visual assets</div>
+          <ul>
+            <li data-zh="讲 Google Maps / Places / Gemini / Firebase 账号与 key 配置" data-en="Explain external API onboarding: Google Maps, Places, Gemini, and Firebase">讲 Google Maps / Places / Gemini / Firebase 账号与 key 配置</li>
+            <li data-zh="演示 Pet-Friendly Map、walk check-in、Places 代理" data-en="Demo the pet-friendly map, walk check-ins, and the Places proxy layer">演示 Pet-Friendly Map、walk check-in、Places 代理</li>
+            <li data-zh="补 Marketplace 数据接入、Adopt Centre 数据层" data-en="Cover marketplace data seeding and the adopt-centre data layer">补 Marketplace 数据接入、Adopt Centre 数据层</li>
+            <li data-zh="点出手绘宠物形象、icon、配色和视觉素材整理" data-en="Point out the hand-drawn pet assets, icons, palette, and visual asset organization">点出手绘宠物形象、icon、配色和视觉素材整理</li>
+          </ul>
+          <div class="minute" data-zh="建议收尾：地图和外部 API 让这个项目从“可看”变成“可在现实里用”。" data-en="Suggested close: maps and external APIs make the product usable in the real world, not just visually nice.">建议收尾：地图和外部 API 让这个项目从“可看”变成“可在现实里用”。</div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="slot">05 · 12:00–15:00</div>
+          <h3>Kejun Xu</h3>
+          <div class="role" data-zh="Beyond Proposal · v3 扩展功能" data-en="Beyond Proposal · v3 extended modules">Beyond Proposal · v3 扩展功能</div>
+          <ul>
+            <li data-zh="展示 Marketplace、Adopt Centre、Inventory、Leaderboard" data-en="Show Marketplace, Adopt Centre, Inventory, and Leaderboard">展示 Marketplace、Adopt Centre、Inventory、Leaderboard</li>
+            <li data-zh="讲 Rewards、Training、Health Records 和多 tab 整合" data-en="Explain Rewards, Training, Health Records, and multi-tab integration">讲 Rewards、Training、Health Records 和多 tab 整合</li>
+            <li data-zh="强调这部分是 beyond proposal，体现技术 ambition" data-en="Emphasize that these modules go beyond the original proposal and show technical ambition">强调这部分是 beyond proposal，体现技术 ambition</li>
+            <li data-zh="最后一句收全场：我们不只是完成必做题，还扩出了一个成长中的宠物生活平台。" data-en="End with: we did not just complete the baseline proposal—we expanded it into a growing pet lifestyle platform.">最后一句收全场：我们不只是完成必做题，还扩出了一个成长中的宠物生活平台。</li>
+          </ul>
+          <div class="minute" data-zh="建议收尾：谢谢大家，欢迎提问。" data-en="Suggested close: thank you, and we welcome your questions.">建议收尾：谢谢大家，欢迎提问。</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="credit-strip">
+        <div class="credit-card">
+          <h3 data-zh="Jiayi Lyu 的贡献怎么放进这版演示" data-en="How Jiayi Lyu is credited in this version">Jiayi Lyu 的贡献怎么放进这版演示</h3>
+          <p data-zh="这版按“5 位上台成员 × 3 分钟”重排，所以设计与文档工作不单独占一个 3 分钟 speaking slot，而是横向嵌进整场：粉色主题、卡片系统、动画风格、多语言体验、slide deck 设计、README 中文版协作，都在整份演示中持续体现。" data-en="Because this version is strictly arranged around 5 speaking slots × 3 minutes, the design/documentation work does not take a separate 3-minute speaking block. Instead, it is credited across the whole presentation through the pink design system, card language, motion style, multilingual experience, slide-deck polish, and Chinese README collaboration.">这版按“5 位上台成员 × 3 分钟”重排，所以设计与文档工作不单独占一个 3 分钟 speaking slot，而是横向嵌进整场：粉色主题、卡片系统、动画风格、多语言体验、slide deck 设计、README 中文版协作，都在整份演示中持续体现。</p>
+        </div>
+        <div class="credit-card">
+          <h3 data-zh="完整团队" data-en="Full team">完整团队</h3>
+          <p>Huanhuan Li · Jiayi Lyu · Xiang Zhang · Ming Zhao · Xingyan Zhou · Kejun Xu</p>
+          <p style="margin-top:10px" data-zh="这一页默认按你要求优先满足“5 人、15 分钟内、双语、面向 seminar”这四个约束。" data-en="This page is intentionally optimized for your four active constraints: 5 speakers, under 15 minutes, bilingual delivery, and seminar readiness.">这一页默认按你要求优先满足“5 人、15 分钟内、双语、面向 seminar”这四个约束。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" data-zh="项目亮点：不只是 proposal，而是做出来了" data-en="Project highlights: not just a proposal, but an implemented system">项目亮点：不只是 proposal，而是做出来了</h2>
+          <p data-zh="下面这些点都直接能对应到 repo 里的前端页面、API 处理器和部署说明，适合拿来打 rubric 里的 Functionality、Technical Ambition 和 Testing & Deployment。" data-en="These points map directly to frontend pages, API handlers, and deployment notes in the repo, making them strong material for the Functionality, Technical Ambition, and Testing & Deployment rubric sections.">下面这些点都直接能对应到 repo 里的前端页面、API 处理器和部署说明，适合拿来打 rubric 里的 Functionality、Technical Ambition 和 Testing & Deployment。</p>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3 data-zh="Digital Pet Core" data-en="Digital Pet Core">Digital Pet Core</h3>
+          <p data-zh="宠物创建、头像成长阶段、4 状态衰减、照片上传、档案编辑，不是静态展示，而是持续演化的宠物状态机。" data-en="Pet creation, avatar life stages, 4-state decay, photo upload, and profile editing make this a living pet state machine—not a static mockup.">宠物创建、头像成长阶段、4 状态衰减、照片上传、档案编辑，不是静态展示，而是持续演化的宠物状态机。</p>
+          <ul>
+            <li data-zh="CreatePetModal + PetContext + status decay" data-en="CreatePetModal + PetContext + status decay">CreatePetModal + PetContext + status decay</li>
+            <li data-zh="本地 fallback 让 demo 在后端缺失时仍可跑" data-en="Local fallback keeps the demo usable even when backend services are unavailable">本地 fallback 让 demo 在后端缺失时仍可跑</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 data-zh="AI + Context Injection" data-en="AI + Context Injection">AI + Context Injection</h3>
+          <p data-zh="AI 顾问不是纯聊天壳。它把 breed、年龄和当前 4 状态注进 prompt，再通过 Gemini 或本地 fallback 给出建议。" data-en="The AI advisor is not just a chatbot shell. It injects breed, age, and the current 4 status signals into prompts, then responds through Gemini or a local fallback path.">AI 顾问不是纯聊天壳。它把 breed、年龄和当前 4 状态注进 prompt，再通过 Gemini 或本地 fallback 给出建议。</p>
+          <ul>
+            <li data-zh="Gemini API handler + fallback responses" data-en="Gemini API handler + fallback responses">Gemini API handler + fallback responses</li>
+            <li data-zh="中文优先，更适合真实用户习惯" data-en="Chinese-first behavior fits the target user flow better">中文优先，更适合真实用户习惯</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 data-zh="Community + Live Interaction" data-en="Community + Live Interaction">Community + Live Interaction</h3>
+          <p data-zh="社区页包含发帖、点赞、评论，配合 Firestore 实时同步；本地模式下也保留 localStorage 体验，适合演示。" data-en="The community page supports posts, likes, and comments with Firestore real-time sync; in local mode it still persists via localStorage, which is practical for demos.">社区页包含发帖、点赞、评论，配合 Firestore 实时同步；本地模式下也保留 localStorage 体验，适合演示。</p>
+          <ul>
+            <li data-zh="狗视角日记 + 情绪反应 + 成就墙" data-en="Dog-perspective diary + emotion reactions + achievement wall">狗视角日记 + 情绪反应 + 成就墙</li>
+            <li data-zh="Matchmaking 与 chat 可作为社交扩展点" data-en="Matchmaking and chat extend the app beyond solo pet care">Matchmaking 与 chat 可作为社交扩展点</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 data-zh="Map + Real-world Use" data-en="Map + real-world use">Map + real-world use</h3>
+          <p data-zh="地图不是装饰页。它结合定位、Places 查询和 check-in，让散步、宠物医院、宠物店这些真实场景进入产品。" data-en="The map is not decorative. It combines location, Places lookups, and check-ins so that walks, vet visits, and pet stores become part of the product flow.">地图不是装饰页。它结合定位、Places 查询和 check-in，让散步、宠物医院、宠物店这些真实场景进入产品。</p>
+          <ul>
+            <li data-zh="Google Places 代理 + nearby search" data-en="Google Places proxy + nearby search">Google Places 代理 + nearby search</li>
+            <li data-zh="有 demo 数据，也能接真实定位" data-en="Works with demo data but can switch to real nearby places">有 demo 数据，也能接真实定位</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 data-zh="Beyond Proposal Modules" data-en="Beyond-proposal modules">Beyond Proposal Modules</h3>
+          <p data-zh="Marketplace、Adopt Centre、Inventory、Leaderboard、Rewards、Training、Health Records，把产品从“宠物仪表盘”扩成多 tab 平台。" data-en="Marketplace, Adopt Centre, Inventory, Leaderboard, Rewards, Training, and Health Records expand the app from a pet dashboard into a multi-tab platform.">Marketplace、Adopt Centre、Inventory、Leaderboard、Rewards、Training、Health Records，把产品从“宠物仪表盘”扩成多 tab 平台。</p>
+          <ul>
+            <li data-zh="这部分最适合打 Technical Ambition" data-en="This section is especially strong for the Technical Ambition criterion">这部分最适合打 Technical Ambition</li>
+            <li data-zh="也说明团队没有只停在最低交付线" data-en="It also shows the team did not stop at the minimum deliverable">也说明团队没有只停在最低交付线</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3 data-zh="Design + i18n" data-en="Design + i18n">Design + i18n</h3>
+          <p data-zh="粉色设计系统、卡片化布局、framer-motion 动画、多语言扩展和本地持久化，让演示看起来像真正产品而不是作业截图。" data-en="The pink design system, card layout, framer-motion animation, multilingual support, and local persistence make the project feel like a product rather than a course screenshot.">粉色设计系统、卡片化布局、framer-motion 动画、多语言扩展和本地持久化，让演示看起来像真正产品而不是作业截图。</p>
+          <ul>
+            <li data-zh="视觉统一感强，适合现场 demo" data-en="Strong visual consistency helps live demo delivery">视觉统一感强，适合现场 demo</li>
+            <li data-zh="多语言也有现实可用性" data-en="Multilingual support adds real product value">多语言也有现实可用性</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" data-zh="架构一页讲清楚" data-en="Architecture in one page">架构一页讲清楚</h2>
+          <p data-zh="如果老师追问“你们到底做了哪些技术集成”，这块可以直接回答。" data-en="If the markers ask what technical integrations were actually built, this section answers that directly.">如果老师追问“你们到底做了哪些技术集成”，这块可以直接回答。</p>
+        </div>
+      </div>
+      <div class="architecture-grid">
+        <div class="arch-card">
+          <h3 data-zh="Frontend" data-en="Frontend">Frontend</h3>
+          <p>React 18 · React Router · Framer Motion · React Hot Toast</p>
+          <ul>
+            <li data-zh="移动端风格 tab 导航" data-en="Mobile-style tab navigation">移动端风格 tab 导航</li>
+            <li data-zh="宠物主页、AI、地图、社区、Profile" data-en="Pet home, AI, map, community, and profile pages">宠物主页、AI、地图、社区、Profile</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3 data-zh="State & Data" data-en="State & data">State & Data</h3>
+          <p>Firebase Auth · Firestore · localStorage fallback</p>
+          <ul>
+            <li data-zh="PetContext 负责宠物状态订阅" data-en="PetContext subscribes to and updates pet state">PetContext 负责宠物状态订阅</li>
+            <li data-zh="本地模式保证 demo 抗故障" data-en="Local mode makes the demo resilient when cloud services are unavailable">本地模式保证 demo 抗故障</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3 data-zh="Backend / API" data-en="Backend / API">Backend / API</h3>
+          <p>Express · Firebase Admin · serverless API handlers · Axios</p>
+          <ul>
+            <li data-zh="/api/ai/chat：Gemini 问答" data-en="/api/ai/chat: Gemini-backed Q&A">/api/ai/chat：Gemini 问答</li>
+            <li data-zh="/api/map/nearby：Google Places 查询" data-en="/api/map/nearby: Google Places lookups">/api/map/nearby：Google Places 查询</li>
+            <li data-zh="/api/community/*：帖子 / 点赞 / 评论" data-en="/api/community/*: posts / likes / comments">/api/community/*：帖子 / 点赞 / 评论</li>
+          </ul>
+        </div>
+        <div class="arch-card">
+          <h3 data-zh="Deployment" data-en="Deployment">Deployment</h3>
+          <p>Vercel · Render · test VM @ 4.155.227.179</p>
+          <ul>
+            <li data-zh="有测试服务器上线记录" data-en="There is a documented test-server deployment record">有测试服务器上线记录</li>
+            <li data-zh="前端静态部署路径清楚，便于现场演示" data-en="The static-frontend deployment path is clear and practical for demo day">前端静态部署路径清楚，便于现场演示</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" data-zh="怎么对准评分标准" data-en="How this aligns with the rubric">怎么对准评分标准</h2>
+          <p data-zh="这部分不是照抄 rubric，而是帮你们现场更像在“主动交作业”。" data-en="This is not a copy-paste of the rubric. It helps you present as if you are actively answering the marking criteria.">这部分不是照抄 rubric，而是帮你们现场更像在“主动交作业”。</p>
+        </div>
+      </div>
+      <div class="rubric-grid">
+        <div class="rubric-card">
+          <h3 data-zh="Functionality & User Stories" data-en="Functionality & User Stories">Functionality & User Stories</h3>
+          <p data-zh="不要只说“我们有很多 tab”。要说清楚完整链路：创建宠物 → 状态追踪 → AI 建议 → 地图 check-in → 社区互动 → 扩展服务。" data-en="Do not just say “we have many tabs.” Show the full user flow: create a pet → track status → ask AI → check in on the map → interact in the community → explore extended services.">不要只说“我们有很多 tab”。要说清楚完整链路：创建宠物 → 状态追踪 → AI 建议 → 地图 check-in → 社区互动 → 扩展服务。</p>
+        </div>
+        <div class="rubric-card">
+          <h3 data-zh="Project Management & Collaboration" data-en="Project Management & Collaboration">Project Management & Collaboration</h3>
+          <p data-zh="你给的 division of work 本身就很强。演讲时直接把“谁负责哪条功能链路”说清楚，会比泛泛说 teamwork 更有说服力。" data-en="Your division-of-work document is already strong evidence. Saying clearly who owned which product flow is much more convincing than vague teamwork language.">你给的 division of work 本身就很强。演讲时直接把“谁负责哪条功能链路”说清楚，会比泛泛说 teamwork 更有说服力。</p>
+        </div>
+        <div class="rubric-card">
+          <h3 data-zh="Technical Ambition & Research" data-en="Technical Ambition & Research">Technical Ambition & Research</h3>
+          <p data-zh="你们最能打的点：Gemini、Google Places、Firebase 实时同步、情绪反馈联动、beyond proposal 的 v3 模块扩展。" data-en="Your strongest ambition points are Gemini, Google Places, Firebase real-time sync, emotion-linked feedback, and the beyond-proposal v3 module expansion.">你们最能打的点：Gemini、Google Places、Firebase 实时同步、情绪反馈联动、beyond proposal 的 v3 模块扩展。</p>
+        </div>
+        <div class="rubric-card">
+          <h3 data-zh="Testing & Deployment" data-en="Testing & Deployment">Testing & Deployment</h3>
+          <p data-zh="虽然不是 full production stack，但 repo 里已经有测试服务器部署记录、依赖说明和稳定的前端静态部署路径，这比“只在本地跑通”更强。" data-en="Even without a full production stack, the repo already includes a test-server deployment record, dependency notes, and a stable static-frontend deployment path—which is stronger than “it only runs locally.”">虽然不是 full production stack，但 repo 里已经有测试服务器部署记录、依赖说明和稳定的前端静态部署路径，这比“只在本地跑通”更强。</p>
+        </div>
+        <div class="rubric-card">
+          <h3 data-zh="Code Quality & Architecture" data-en="Code Quality & Architecture">Code Quality & Architecture</h3>
+          <p data-zh="讲模块边界：页面、context、components、API handlers、fallback 设计。重点不是夸代码，而是说明你们知道为什么这样拆。" data-en="Talk about boundaries: pages, context, components, API handlers, and fallback design. The point is not to boast about the code, but to show that the structure was intentional.">讲模块边界：页面、context、components、API handlers、fallback 设计。重点不是夸代码，而是说明你们知道为什么这样拆。</p>
+        </div>
+        <div class="rubric-card">
+          <h3 data-zh="最后 20 秒收尾模板" data-en="A strong final 20-second close">最后 20 秒收尾模板</h3>
+          <p data-zh="我们不只是做了一个看起来可爱的宠物页面，而是把实时状态、AI 建议、社区互动、地图场景和扩展服务整合成了一套完整的狗狗成长平台。" data-en="We did not just build a cute pet page—we integrated live status tracking, AI advice, community interaction, map-based experiences, and extended services into a complete dog growth platform.">我们不只是做了一个看起来可爱的宠物页面，而是把实时状态、AI 建议、社区互动、地图场景和扩展服务整合成了一套完整的狗狗成长平台。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" data-zh="现场时间卡（防超时）" data-en="Live time cards (to avoid overruns)">现场时间卡（防超时）</h2>
+          <p data-zh="你们只要按下面 5 格走，基本就能稳定压在 15 分钟内。" data-en="If the team follows these five blocks, you should stay safely within 15 minutes.">你们只要按下面 5 格走，基本就能稳定压在 15 分钟内。</p>
+        </div>
+      </div>
+      <div class="timeline-wrap">
+        <div class="timeline-card"><div class="time">0–3</div><h3>Huanhuan</h3><p data-zh="宠物创建 + 状态系统 + 持久化" data-en="Pet creation + status system + persistence">宠物创建 + 状态系统 + 持久化</p></div>
+        <div class="timeline-card"><div class="time">3–6</div><h3>Xingyan</h3><p data-zh="AI 顾问 + prompt + fallback" data-en="AI advisor + prompt + fallback">AI 顾问 + prompt + fallback</p></div>
+        <div class="timeline-card"><div class="time">6–9</div><h3>Ming</h3><p data-zh="架构 + 社区 + matchmaking + 部署" data-en="Architecture + community + matchmaking + deployment">架构 + 社区 + matchmaking + 部署</p></div>
+        <div class="timeline-card"><div class="time">9–12</div><h3>Xiang</h3><p data-zh="地图 + 外部 API + 视觉资产" data-en="Map + external APIs + visual assets">地图 + 外部 API + 视觉资产</p></div>
+        <div class="timeline-card"><div class="time">12–15</div><h3>Kejun</h3><p data-zh="beyond proposal 扩展 + 总结" data-en="Beyond-proposal expansion + wrap-up">beyond proposal 扩展 + 总结</p></div>
+      </div>
+    </section>
 
     <div class="footer">
-      <span class="zh-only">Made with ❤️ by Team GG Bond · CS732 S1 2026</span>
-      <span class="en-only">Made with ❤️ by Team GG Bond · CS732 S1 2026</span>
+      <div data-zh="Doggy Growth Plan · Team GG Bond · bilingual seminar landing" data-en="Doggy Growth Plan · Team GG Bond · bilingual seminar landing">Doggy Growth Plan · Team GG Bond · bilingual seminar landing</div>
     </div>
   </div>
 
   <script>
-    function setLang(lang) {
-      document.body.setAttribute('data-lang', lang);
+    function setLang(lang){
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
       document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      // Persist choice
-      try { localStorage.setItem('dgp-lang', lang); } catch(e) {}
+      document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+        el.textContent = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
+      });
+      try{ localStorage.setItem('ggbond-landing-lang', lang); }catch(e){}
     }
-
-    // Restore saved language
-    try {
-      const saved = localStorage.getItem('dgp-lang');
-      if (saved) setLang(saved);
-    } catch(e) {}
+    try{
+      const saved = localStorage.getItem('ggbond-landing-lang');
+      if(saved === 'en') setLang('en');
+      else setLang('zh');
+    }catch(e){ setLang('zh'); }
   </script>
 </body>
 </html>
