@@ -56,7 +56,7 @@
     .qrbox{text-align:center;display:flex;flex-direction:column;justify-content:center;gap:12px}
     .qrbox img{width:210px;max-width:100%;margin:0 auto;border-radius:18px;border:4px solid rgba(255,255,255,.12);background:#fff}
     .qrurl{font-size:12px;color:#fbcfe8;word-break:break-all}
-    .grid2,.grid3,.grid4{display:grid;gap:16px}
+    .grid2,.grid3,.grid4,.mock-grid{display:grid;gap:16px}
     .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
     .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
     .grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -75,6 +75,19 @@
     .quote{border-left:4px solid var(--pink)}
     .visual{padding:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:26px;overflow:hidden}
     .visual img{width:100%;display:block;border-radius:18px}
+    .talk{margin-top:16px;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(249,168,212,.18);color:#fff}
+    .talk strong{color:#f9a8d4}
+    .mock-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .phone{background:#0b1020;border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:12px;box-shadow:0 24px 50px rgba(0,0,0,.26)}
+    .phone-screen{background:linear-gradient(180deg,#fff6fb,#ffeef8);border-radius:22px;min-height:420px;padding:16px;color:#6b2149}
+    .browser{background:#0b1020;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:10px;box-shadow:0 24px 50px rgba(0,0,0,.22)}
+    .browser-bar{display:flex;gap:6px;margin-bottom:10px}
+    .dot{width:10px;height:10px;border-radius:999px;background:#fb7185}
+    .dot:nth-child(2){background:#f59e0b}.dot:nth-child(3){background:#10b981}
+    .browser-screen{background:linear-gradient(180deg,#fff8fc,#fff1f7);border-radius:16px;min-height:280px;padding:16px;color:#6b2149}
+    .mini-card{background:#fff;border:1px solid #fbcfe8;border-radius:16px;padding:12px;margin-top:10px;box-shadow:0 8px 18px rgba(244,114,182,.08)}
+    .mini-title{font-size:15px;font-weight:800;color:#9d174d;margin-bottom:8px}
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.pill-row span{font-size:11px;padding:6px 9px;border-radius:999px;background:#fdf2f8;border:1px solid #fbcfe8;color:#be185d}
     .floating{animation:floaty 5.2s ease-in-out infinite}
     .floating-slow{animation:floaty 7s ease-in-out infinite}
     .glow{animation:glowPulse 3.2s ease-in-out infinite}
@@ -98,7 +111,7 @@
       .right{width:100%;justify-content:space-between;flex-wrap:wrap}
       .jump{max-width:none;flex:1 1 100%}
       .slide{padding:20px 14px 30px}
-      .hero,.grid2,.grid3,.grid4{grid-template-columns:1fr}
+      .hero,.grid2,.grid3,.grid4,.mock-grid{grid-template-columns:1fr}
       h1{font-size:36px}
       h2{font-size:28px}
       .lead{font-size:16px}
@@ -125,7 +138,8 @@
       <button data-target="8">Map</button>
       <button data-target="10">Expansion</button>
       <button data-target="12">Design</button>
-      <button data-target="14">Close</button>
+      <button data-target="14">GitHub</button>
+      <button data-target="15">Close</button>
     </div>
     <div class="right">
       <div class="lang">
@@ -159,7 +173,7 @@
           <h3 data-cn="扫码进入真实演示" data-en="Scan to open the live demo">扫码进入真实演示</h3>
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=http://4.155.227.179&margin=10&format=png" alt="QR Code">
           <div class="qrurl">http://4.155.227.179</div>
-          <p class="sub" data-cn="建议现场只用一台电脑投屏，手机扫码只是给观众自己看细节。" data-en="For the seminar, keep one main presentation device; audience phones are only for optional detail viewing.">建议现场只用一台电脑投屏，手机扫码只是给观众自己看细节。</p>
+          <p class="sub" data-cn="现场最好只用一台电脑投屏；手机扫码主要是给观众自己看细节。" data-en="For the seminar, it is best to keep one main presentation device; audience phones are mainly for optional detail viewing.">现场最好只用一台电脑投屏；手机扫码主要是给观众自己看细节。</p>
           <div class="visual floating glow" style="margin-top:4px">
             <img src="https://raw.githubusercontent.com/UOA-CS732-S1-2026/group-project-gg-bond/main/GG%20Bond.png" alt="GG Bond team visual">
           </div>
@@ -177,7 +191,7 @@
         </div>
         <div class="grid2" style="margin-top:18px">
           <div class="speaker">
-            <h3 data-cn="建议节奏" data-en="Suggested pacing">建议节奏</h3>
+            <h3 data-cn="推荐页序" data-en="Recommended flow">推荐页序</h3>
             <ul class="list">
               <li data-cn="Slide 0–1：开场 + 结构（可由 Ming 或第一位 speaker 先开）" data-en="Slides 0–1: opening + structure (Ming or the first speaker can open)">Slide 0–1：开场 + 结构（可由 Ming 或第一位 speaker 先开）</li>
               <li data-cn="Slide 2–3：Huanhuan Li" data-en="Slides 2–3: Huanhuan Li">Slide 2–3：Huanhuan Li</li>
@@ -226,6 +240,7 @@
         <div class="visual floating-slow shimmer" style="margin-top:18px">
           <img src="assets/slides/pet-growth.svg" alt="Digital pet growth illustration">
         </div>
+        <div class="talk"><strong data-cn="这一页可以直接这样讲：" data-en="A natural way to say this is:">这一页可以直接这样讲：</strong><span data-cn=" 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。" data-en=" We first built the core pet-growth loop so the user does not just see a cute character, but can actually create, care for, and observe a pet that changes over time."> 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。</span></div>
       </div>
     </section>
 
@@ -238,7 +253,26 @@
           <div class="timeline"><div class="time">02</div><h3 data-cn="云端同步" data-en="Cloud sync">云端同步</h3><p class="sub" data-cn="PetContext 会订阅 Firestore 文档，在线模式下状态能同步。" data-en="PetContext subscribes to Firestore documents, so state can sync in online mode.">PetContext 会订阅 Firestore 文档，在线模式下状态能同步。</p></div>
           <div class="timeline"><div class="time">03</div><h3 data-cn="数据库与 API" data-en="Database and APIs">数据库与 API</h3><p class="sub" data-cn="这也连接到 MySQL schema 设计和 chat / 商城 / rewards 等共享数据接口。" data-en="This also connects to the MySQL schema design and shared APIs for chat, marketplace, rewards, and more.">这也连接到 MySQL schema 设计和 chat / 商城 / rewards 等共享数据接口。</p></div>
         </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这一部分要让老师看到：我们不是只有界面，而是考虑了‘状态会不会存下来、换设备后会不会还在’。" data-en="This section should show that the team did not just build UI—they also considered whether pet state persists and survives across devices.">这一部分要让老师看到：我们不是只有界面，而是考虑了‘状态会不会存下来、换设备后会不会还在’。</p></div>
+        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里想表达的是：我们不只是做界面，还考虑了状态会不会存下来、换设备之后会不会还在。" data-en="The key point here is that we did not just design interfaces—we also thought about whether pet state persists and survives across devices.">这里想表达的是：我们不只是做界面，还考虑了状态会不会存下来、换设备之后会不会还在。</p></div>
+        <div class="mock-grid" style="margin-top:18px">
+          <div class="phone floating">
+            <div class="phone-screen">
+              <div class="mini-title">Pet Dashboard</div>
+              <div class="mini-card"><strong>Cookie · Corgi</strong><div class="pill-row"><span>appetite 82%</span><span>health 91%</span><span>mood 76%</span><span>social 68%</span></div></div>
+              <div class="mini-card">🐶 avatar stage: adult</div>
+              <div class="mini-card">🕒 last walk synced 2 mins ago</div>
+            </div>
+          </div>
+          <div class="browser floating-slow">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="browser-screen">
+              <div class="mini-title">Cross-device State</div>
+              <div class="mini-card">Firestore snapshot active</div>
+              <div class="mini-card">Fallback storage available</div>
+              <div class="mini-card">Chat / rewards / inventory share the same user state</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -267,6 +301,7 @@
         <div class="visual shimmer" style="margin-top:18px">
           <img src="assets/slides/ai-advisor.svg" alt="AI advisor architecture illustration">
         </div>
+        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="One clean way to phrase it is:">这一页可以这样表达：</strong><span data-cn=" 这一页的重点是，我们的 AI 顾问不是独立聊天机器人，它会读取宠物当前状态，所以回答会跟这只狗本身有关。" data-en=" The main point on this slide is that our AI advisor is not a standalone chatbot. It reads the pet’s live state, so the answers are tied to this specific dog."> 这一页的重点是，我们的 AI 顾问不是独立聊天机器人，它会读取宠物当前状态，所以回答会跟这只狗本身有关。</span></div>
       </div>
     </section>
 
@@ -279,7 +314,25 @@
           <div class="metric"><div class="num">Fallback</div><div class="lab" data-cn="后端挂了也能演示" data-en="still demoable when backend fails">后端挂了也能演示</div></div>
           <div class="metric"><div class="num">Bilingual</div><div class="lab" data-cn="更贴近真实用户使用" data-en="closer to real user behavior">更贴近真实用户使用</div></div>
         </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这一页可以直接打 rubric 里的 Technical Ambition：我们不是把 AI 当作装饰，而是把它和宠物状态、语言偏好、故障降级都连起来了。" data-en="This directly supports the Technical Ambition criterion: AI is not decorative here—it is integrated with pet state, language preference, and failure handling.">这一页可以直接打 rubric 里的 Technical Ambition：我们不是把 AI 当作装饰，而是把它和宠物状态、语言偏好、故障降级都连起来了。</p></div>
+        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里比较有分量的地方在于，AI 不是装饰功能，而是和宠物状态、语言偏好、故障降级一起设计出来的。" data-en="What gives this section weight is that AI is not decorative—it was designed together with pet state, language preference, and failure handling.">这里比较有分量的地方在于，AI 不是装饰功能，而是和宠物状态、语言偏好、故障降级一起设计出来的。</p></div>
+        <div class="mock-grid" style="margin-top:18px">
+          <div class="phone floating">
+            <div class="phone-screen">
+              <div class="mini-title">AI Chat</div>
+              <div class="mini-card">🤖 How much exercise does Cookie need today?</div>
+              <div class="mini-card">Based on mood 76% and health 91%, a light evening walk is a good option.</div>
+              <div class="pill-row"><span>Gemini</span><span>context prompt</span><span>CN first</span></div>
+            </div>
+          </div>
+          <div class="phone floating-slow">
+            <div class="phone-screen">
+              <div class="mini-title">Smart Prompts</div>
+              <div class="mini-card">🍖 feeding amount</div>
+              <div class="mini-card">🏃 walk duration</div>
+              <div class="mini-card">🌡 fever signs</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -294,8 +347,9 @@
           <div class="timeline"><div class="time">Deploy</div><p class="sub">Render · Vercel · test VM</p></div>
         </div>
         <div class="panel" style="margin-top:18px">
-          <p class="lead" data-cn="这一段要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。" data-en="The goal is not just to list many technologies, but to explain why this architecture lets the pet system, AI, map, and community modules work together. ">这一段要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。</p>
+          <p class="lead" data-cn="这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。" data-en="The goal here is not just to list many technologies, but to explain why this architecture lets the pet system, AI, map, and community modules work together.">这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。</p>
         </div>
+        <div class="talk"><strong data-cn="这一段可以这样表达：" data-en="One clean way to phrase it is:">这一段可以这样表达：</strong><span data-cn=" 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。" data-en=" We separated frontend interaction, user state, external APIs, and deployment, but they all serve the same product flow, so the result is not a pile of disconnected features."> 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。</span></div>
       </div>
     </section>
 
@@ -319,6 +373,25 @@
         </div>
         <div class="visual floating-slow" style="margin-top:18px">
           <img src="assets/slides/social-map.svg" alt="Community, map, and matchmaking illustration">
+        </div>
+        <div class="mock-grid" style="margin-top:18px">
+          <div class="browser floating">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="browser-screen">
+              <div class="mini-title">Community Feed</div>
+              <div class="mini-card">🐶 Luna posted: Had a great walk today!</div>
+              <div class="mini-card">❤️ 24 · 💧 3 · 🐾 11</div>
+              <div class="mini-card">comment thread synced in real time</div>
+            </div>
+          </div>
+          <div class="phone floating-slow">
+            <div class="phone-screen">
+              <div class="mini-title">Match + Chat</div>
+              <div class="mini-card">Breed: Corgi · Auckland</div>
+              <div class="mini-card">💘 like · ⏭ skip</div>
+              <div class="mini-card">DM opened with nearby pet owner</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -345,6 +418,7 @@
             </ul>
           </div>
         </div>
+        <div class="talk"><strong data-cn="这页直接讲：" data-en="On this slide, just say:">这页直接讲：</strong><span data-cn=" 地图页让这个项目从虚拟宠物应用走到现实场景，因为用户真的可以找附近可去的地方，并把散步记录写回系统。" data-en=" This map page pushes the project beyond a virtual pet app into a real-world scenario, because users can find nearby places and write walk check-ins back into the system."> 地图页让这个项目从虚拟宠物应用走到现实场景，因为用户真的可以找附近可去的地方，并把散步记录写回系统。</span></div>
       </div>
     </section>
 
@@ -369,7 +443,8 @@
           <div class="timeline"><div class="time">Adopt</div><p class="sub">Adopt Centre / 品种 / 个性 / 健康指标</p></div>
           <div class="timeline"><div class="time">Tabs</div><p class="sub">Inventory / Leaderboard / Rewards / Training / Health Records</p></div>
         </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这一页的核心不是“功能越多越好”，而是说明团队有 extra ambition：我们没有停在最小可交付，而是继续往完整宠物生活平台去扩。" data-en="The point here is not “more features are always better,” but to show extra ambition: the team did not stop at the minimum viable submission, and kept pushing toward a fuller pet lifestyle platform.">这一页的核心不是“功能越多越好”，而是说明团队有 extra ambition：我们没有停在最小可交付，而是继续往完整宠物生活平台去扩。</p></div>
+        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这一页真正想表达的是：团队没有停在最小可交付，而是继续把它往完整宠物生活平台去扩。" data-en="What this slide really shows is that the team did not stop at the minimum viable submission, and kept expanding the app toward a fuller pet lifestyle platform.">这一页真正想表达的是：团队没有停在最小可交付，而是继续把它往完整宠物生活平台去扩。</p></div>
+        <div class="talk"><strong data-cn="可以这样过渡：" data-en="A smooth transition is:">可以这样过渡：</strong><span data-cn=" 到这里我们已经不只是证明核心功能能跑，而是开始证明这个项目有继续成长成完整产品的空间。" data-en=" At this point, we are no longer only proving that the core features work—we are also showing that the project can continue growing into a fuller product."> 到这里我们已经不只是证明核心功能能跑，而是开始证明这个项目有继续成长成完整产品的空间。</span></div>
       </div>
     </section>
 
@@ -428,19 +503,48 @@
 
     <section class="slide" id="s14">
       <div class="wrap">
+        <div class="speaker-tag">🐙 GitHub / Collaboration</div>
+        <h2 data-cn="我们实际用到的 GitHub 技术与协作方式" data-en="GitHub techniques and collaboration practices we actually used">我们实际用到的 GitHub 技术与协作方式</h2>
+        <div class="grid2">
+          <div class="panel">
+            <ul class="list">
+              <li data-cn="GitHub repo 作为团队单一代码源" data-en="GitHub repo as the team’s single source of code truth">GitHub repo 作为团队单一代码源</li>
+              <li data-cn="branch protection：主分支需要 PR + reviewer" data-en="branch protection: the main branch requires PRs and review">branch protection：主分支需要 PR + reviewer</li>
+              <li data-cn="feature branching：不同功能并行开发" data-en="feature branching for parallel feature work">feature branching：不同功能并行开发</li>
+              <li data-cn="commit history 作为协作证据" data-en="commit history as evidence of collaboration">commit history 作为协作证据</li>
+              <li data-cn="README / deployment notes 支撑交接和演示" data-en="README and deployment notes support handover and demo delivery">README / deployment notes 支撑交接和演示</li>
+            </ul>
+          </div>
+          <div class="browser floating-slow">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="browser-screen">
+              <div class="mini-title">GitHub Workflow</div>
+              <div class="mini-card">main protected</div>
+              <div class="mini-card">feature branches → pull requests → review → merge</div>
+              <div class="mini-card">deployment notes kept in repo</div>
+              <div class="pill-row"><span>PR review</span><span>branch protection</span><span>collaboration</span><span>history</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="One clean way to phrase it is:">这一页可以这样表达：</strong><span data-cn=" 除了产品功能本身，我们也用 GitHub 把协作过程结构化，包括受保护主分支、PR 合并流程，以及部署记录和文档，这些都能直接对应到课程对 collaboration 和 project management 的要求。" data-en=" Besides the product features themselves, we also used GitHub to structure collaboration, including a protected main branch, PR-based merging, and deployment notes. These map directly to the course expectations for collaboration and project management."> 除了产品功能本身，我们也用 GitHub 把协作过程结构化，包括受保护主分支、PR 合并流程，以及部署记录和文档，这些都能直接对应到课程对 collaboration 和 project management 的要求。</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s15">
+      <div class="wrap">
         <h2 data-cn="最后总结：这份演示该怎么收" data-en="Final wrap-up: how to close the presentation">最后总结：这份演示该怎么收</h2>
         <div class="grid2">
           <div class="panel">
             <h3 data-cn="对 rubric 的最强对应" data-en="Strongest rubric connections">对 rubric 的最强对应</h3>
             <ul class="list">
               <li data-cn="Functionality：核心养宠链路 + AI + 地图 + 社区" data-en="Functionality: core pet flow + AI + map + community">Functionality：核心养宠链路 + AI + 地图 + 社区</li>
-              <li data-cn="Project Management：清晰的六人分工" data-en="Project Management: clear six-member ownership">Project Management：清晰的六人分工</li>
+              <li data-cn="Project Management：清晰的六人分工 + GitHub 协作流程" data-en="Project Management: clear six-member ownership + GitHub workflow">Project Management：清晰的六人分工 + GitHub 协作流程</li>
               <li data-cn="Technical Ambition：Gemini / Places / Firestore / beyond proposal 扩展" data-en="Technical Ambition: Gemini / Places / Firestore / beyond-proposal expansion">Technical Ambition：Gemini / Places / Firestore / beyond proposal 扩展</li>
               <li data-cn="Testing & Deployment：真实 test server 与部署记录" data-en="Testing & Deployment: real test server and deployment record">Testing & Deployment：真实 test server 与部署记录</li>
             </ul>
           </div>
           <div class="quote">
-            <p class="lead" data-cn="一句话收尾可以这样讲：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。" data-en="A strong one-line close is: Doggy Growth Plan is not just a cute pet demo, but a full platform prototype that integrates digital pet growth, AI advice, social interaction, map-based experiences, and extended services.">一句话收尾可以这样讲：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。</p>
+            <p class="lead" data-cn="最后可以直接这样收：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。" data-en="A clean closing line is: Doggy Growth Plan is not just a cute pet demo, but a full platform prototype that integrates digital pet growth, AI advice, social interaction, map-based experiences, and extended services.">最后可以直接这样收：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。</p>
             <p class="sub" style="margin-top:12px" data-cn="Thank you for listening. We welcome your questions." data-en="Thank you for listening. We welcome your questions.">Thank you for listening. We welcome your questions.</p>
           </div>
         </div>
@@ -449,10 +553,10 @@
   </div>
 
   <div class="footer-bar">
-    <div class="footer-left">Doggy Growth Plan · GG Bond · <span id="footerLabel">Slide 1 / 15</span></div>
+    <div class="footer-left">Doggy Growth Plan · GG Bond · <span id="footerLabel">Slide 1 / 16</span></div>
     <div class="pager">
       <button class="icon-btn" onclick="prevSlide()">‹</button>
-      <div class="slide-num" id="slideNum">1 / 15</div>
+      <div class="slide-num" id="slideNum">1 / 16</div>
       <button class="icon-btn" onclick="nextSlide()">›</button>
     </div>
   </div>
@@ -482,6 +586,7 @@
       ['Kejun 2','Kejun 2'],
       ['Jiayi 1','Jiayi 1'],
       ['Jiayi 2','Jiayi 2'],
+      ['GitHub / Collaboration','GitHub / Collaboration'],
       ['总结 / Closing','Closing']
     ];
 
@@ -498,7 +603,7 @@
     function updateNav(){
       navButtons.forEach(btn => btn.classList.remove('active'));
       let activeGroup = 0;
-      const breaks = [0,2,4,6,8,10,12,14];
+      const breaks = [0,2,4,6,8,10,12,14,15];
       for(let i=0;i<breaks.length;i++) if(current >= breaks[i]) activeGroup = breaks[i];
       const targetBtn = navButtons.find(btn => Number(btn.dataset.target) === activeGroup);
       if(targetBtn) targetBtn.classList.add('active');
