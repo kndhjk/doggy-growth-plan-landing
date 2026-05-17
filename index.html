@@ -224,6 +224,7 @@
               <li data-cn="breed / birthday / name 创建流程" data-en="breed / birthday / name creation flow">breed / birthday / name 创建流程</li>
               <li data-cn="4 状态仪表盘：appetite / health / mood / social" data-en="4-status dashboard: appetite / health / mood / social">4 状态仪表盘：appetite / health / mood / social</li>
               <li data-cn="宠物头像会随着 puppy / adult / senior 切换" data-en="The pet avatar changes across puppy / adult / senior stages">宠物头像会随着 puppy / adult / senior 切换</li>
+              <li data-cn="这一部分也连到数据库建模，因为这些状态和资料都需要有稳定的数据结构去承接。" data-en="This part also connects to the database model, because these pet states and profile fields need a stable structure underneath.">这一部分也连到数据库建模，因为这些状态和资料都需要有稳定的数据结构去承接。</li>
             </ul>
           </div>
           <div class="panel">
@@ -233,13 +234,14 @@
               <li><code>frontend/src/components/Pet/CreatePetModal.js</code></li>
               <li><code>frontend/src/context/PetContext.js</code></li>
               <li><code>frontend/src/utils/statusDecay.js</code> / <code>statusDecayV2.js</code></li>
+              <li data-cn="并对应到 pet / activity / shared user state 这些数据结构设计思路" data-en="This also maps to the design of pet, activity, and shared user-state structures">并对应到 pet / activity / shared user state 这些数据结构设计思路</li>
             </ul>
           </div>
         </div>
         <div class="visual floating-slow shimmer" style="margin-top:18px">
           <img src="assets/slides/pet-growth.svg" alt="Digital pet growth illustration">
         </div>
-        <div class="talk"><strong data-cn="这一页可以直接这样讲：" data-en="A natural way to say this is:">这一页可以直接这样讲：</strong><span data-cn=" 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。" data-en=" We first built the core pet-growth loop so the user does not just see a cute character, but can actually create, care for, and observe a pet that changes over time."> 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。</span></div>
+        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="A natural way to say this is:">这一页可以这样表达：</strong><span data-cn=" 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。与此同时，这一部分也逼着我们先把底层数据结构想清楚。" data-en=" We first built the core pet-growth loop so the user does not just see a cute character, but can actually create, care for, and observe a pet that changes over time. At the same time, this also forced us to think clearly about the underlying data structure."> 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。与此同时，这一部分也逼着我们先把底层数据结构想清楚。</span></div>
       </div>
     </section>
 
@@ -250,9 +252,9 @@
         <div class="grid3">
           <div class="timeline"><div class="time">01</div><h3 data-cn="本地模式" data-en="Local mode">本地模式</h3><p class="sub" data-cn="如果后端或云服务不可用，localStorage fallback 仍然让 demo 可跑。" data-en="If backend or cloud services are unavailable, localStorage fallback keeps the demo usable.">如果后端或云服务不可用，localStorage fallback 仍然让 demo 可跑。</p></div>
           <div class="timeline"><div class="time">02</div><h3 data-cn="云端同步" data-en="Cloud sync">云端同步</h3><p class="sub" data-cn="PetContext 会订阅 Firestore 文档，在线模式下状态能同步。" data-en="PetContext subscribes to Firestore documents, so state can sync in online mode.">PetContext 会订阅 Firestore 文档，在线模式下状态能同步。</p></div>
-          <div class="timeline"><div class="time">03</div><h3 data-cn="数据库与 API" data-en="Database and APIs">数据库与 API</h3><p class="sub" data-cn="这也连接到 MySQL schema 设计和 chat / 商城 / rewards 等共享数据接口。" data-en="This also connects to the MySQL schema design and shared APIs for chat, marketplace, rewards, and more.">这也连接到 MySQL schema 设计和 chat / 商城 / rewards 等共享数据接口。</p></div>
+          <div class="timeline"><div class="time">03</div><h3 data-cn="数据库结构" data-en="Database structure">数据库结构</h3><p class="sub" data-cn="Huanhuan 这部分不仅做前端流程，也要考虑 MySQL schema 怎么承接宠物资料、状态记录和后续共享模块。" data-en="Huanhuan’s part is not only about the frontend flow. It also involves thinking through how the MySQL schema should support pet profiles, state records, and later shared modules.">Huanhuan 这部分不仅做前端流程，也要考虑 MySQL schema 怎么承接宠物资料、状态记录和后续共享模块。</p></div>
         </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里想表达的是：我们不只是做界面，还考虑了状态会不会存下来、换设备之后会不会还在。" data-en="The key point here is that we did not just design interfaces—we also thought about whether pet state persists and survives across devices.">这里想表达的是：我们不只是做界面，还考虑了状态会不会存下来、换设备之后会不会还在。</p></div>
+        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里想表达的是：我们不只是做界面，还把数据库结构和状态存储一起想清楚了，所以宠物资料、活动记录和跨设备共享才有稳定基础。" data-en="The key point here is that we did not just design interfaces. We also thought through the database structure and state persistence, so pet profiles, activity records, and cross-device sharing all have a stable foundation.">这里想表达的是：我们不只是做界面，还把数据库结构和状态存储一起想清楚了，所以宠物资料、活动记录和跨设备共享才有稳定基础。</p></div>
         <div class="mock-grid" style="margin-top:18px">
           <div class="phone floating">
             <div class="phone-screen">
