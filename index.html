@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doggy Growth Plan · GG Bond Seminar Slides</title>
+  <title>GG Bond · Technical Architecture Demo</title>
   <style>
     :root{
       --bg:#0f172a;
@@ -17,6 +17,7 @@
       --pink2:#fb7185;
       --purple:#c084fc;
       --cyan:#67e8f9;
+      --green:#34d399;
       --shadow:0 24px 70px rgba(0,0,0,.28);
       --topbar-h:56px;
       --bottom-gap:72px;
@@ -36,114 +37,127 @@
     #slides{position:fixed;top:calc(var(--topbar-h) + 3px);left:0;right:0;bottom:var(--bottom-gap);overflow-y:auto;scroll-behavior:smooth}
     .slide{display:none;min-height:100%;padding:28px 42px 40px;animation:fade .28s ease}
     .slide.active{display:block}
-    .wrap{max-width:1180px;margin:0 auto}
+    .wrap{max-width:1100px;margin:0 auto}
     .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:stretch}
-    .card,.panel,.metric,.speaker,.timeline,.quote{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
-    .card,.panel,.speaker,.timeline,.quote{padding:24px}
-    .hero .card,.panel,.speaker,.timeline,.metric,.quote{transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease}
-    .hero .card:hover,.panel:hover,.speaker:hover,.timeline:hover,.metric:hover,.quote:hover{transform:translateY(-4px);box-shadow:0 28px 80px rgba(0,0,0,.34);border-color:rgba(249,168,212,.32)}
+    .card,.panel,.metric,.speaker,.timeline,.quote,.box{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+    .card,.panel,.speaker,.timeline,.quote,.box{padding:24px}
+    .hero .card,.panel,.speaker,.timeline,.metric,.quote,.box{transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease}
+    .hero .card:hover,.panel:hover,.speaker:hover,.timeline:hover,.metric:hover,.quote:hover,.box:hover{transform:translateY(-4px);box-shadow:0 28px 80px rgba(0,0,0,.34);border-color:rgba(249,168,212,.32)}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#f9a8d4;font-weight:900;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
-    h1{font-size:54px;line-height:1.02;font-weight:950;letter-spacing:-.04em;margin:16px 0 12px}
-    h2{font-size:34px;line-height:1.08;font-weight:900;margin-bottom:14px}
-    h3{font-size:22px;line-height:1.12;font-weight:900;margin-bottom:10px}
+    h1{font-size:52px;line-height:1.02;font-weight:950;letter-spacing:-.04em;margin:16px 0 12px}
+    h2{font-size:32px;line-height:1.08;font-weight:900;margin-bottom:14px}
+    h3{font-size:20px;line-height:1.12;font-weight:900;margin-bottom:10px}
     .gradient{background:linear-gradient(135deg,#fff,#f9a8d4 45%,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lead{font-size:18px;line-height:1.7;color:#fce7f3;opacity:.95}
+    .lead{font-size:17px;line-height:1.7;color:#fce7f3;opacity:.95}
     .sub{font-size:14px;color:#fbcfe8;opacity:.86;line-height:1.7}
-    .hero-actions,.chip-row,.team-tags,.mini-tags{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-actions,.chip-row,.team-tags,.mini-tags,.tag-row{display:flex;gap:10px;flex-wrap:wrap}
     .cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:16px;text-decoration:none;font-weight:900}
     .cta.primary{background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff}
     .cta.secondary{background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff}
     .qrbox{text-align:center;display:flex;flex-direction:column;justify-content:center;gap:12px}
     .qrbox img{width:210px;max-width:100%;margin:0 auto;border-radius:18px;border:4px solid rgba(255,255,255,.12);background:#fff}
     .qrurl{font-size:12px;color:#fbcfe8;word-break:break-all}
-    .grid2,.grid3,.grid4,.mock-grid{display:grid;gap:16px}
+    .grid2,.grid3,.grid4{display:grid;gap:16px}
     .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
     .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
     .grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .metric{padding:20px;border-radius:24px}
-    .metric .num{font-size:38px;font-weight:950;line-height:1;background:linear-gradient(135deg,#fff,#f9a8d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .metric{padding:20px;border-radius:24px;text-align:center}
+    .metric .num{font-size:36px;font-weight:950;line-height:1;background:linear-gradient(135deg,#fff,#f9a8d4);-webkit-background-clip:text;background-clip:text;color:transparent}
     .metric .lab{font-size:13px;color:#fbcfe8;margin-top:8px}
     .list{padding-left:18px;display:grid;gap:8px;color:#fce7f3}
     .list li{line-height:1.65}
     .soft{color:#fbcfe8}
     .speaker{position:relative;overflow:hidden}
     .speaker::after{content:"";position:absolute;right:-30px;bottom:-30px;width:150px;height:150px;border-radius:999px;background:radial-gradient(circle, rgba(244,114,182,.14), transparent 68%)}
-    .speaker-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#f9a8d4;font-size:12px;font-weight:900;margin-bottom:12px}
+    .speaker-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#f9a8d4;font-size:12px;font-weight:900;margin-bottom:14px}
     .speaker-tag.star{background:linear-gradient(135deg,rgba(244,114,182,.22),rgba(192,132,252,.24));color:#fff;border:1px solid rgba(249,168,212,.35);box-shadow:0 0 28px rgba(244,114,182,.16)}
+    .speaker-tag.green{background:linear-gradient(135deg,rgba(52,211,153,.22),rgba(52,211,153,.14));color:#6ee7b7;border:1px solid rgba(52,211,153,.3)}
     .mini-tags span,.team-tags span{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);font-size:13px;color:#fff}
     .timeline{padding:18px}
-    .timeline .time{font-size:30px;font-weight:950;color:#fff;margin-bottom:10px}
-    .quote{border-left:4px solid var(--pink)}
+    .timeline .time{font-size:28px;font-weight:950;color:#fff;margin-bottom:8px}
+    .quote{border-left:4px solid var(--pink);padding:18px 20px}
     .visual{padding:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:26px;overflow:hidden}
     .visual img{width:100%;display:block;border-radius:18px}
-    .talk{margin-top:16px;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(249,168,212,.18);color:#fff}
+    .talk{margin-top:16px;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(249,168,212,.18);color:#fff;font-size:15px;line-height:1.7}
     .talk strong{color:#f9a8d4}
-    .mock-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .phone{background:#0b1020;border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:12px;box-shadow:0 24px 50px rgba(0,0,0,.26)}
-    .phone-screen{background:linear-gradient(180deg,#fff6fb,#ffeef8);border-radius:22px;min-height:420px;padding:16px;color:#6b2149}
-    .browser{background:#0b1020;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:10px;box-shadow:0 24px 50px rgba(0,0,0,.22)}
-    .browser-bar{display:flex;gap:6px;margin-bottom:10px}
-    .dot{width:10px;height:10px;border-radius:999px;background:#fb7185}
-    .dot:nth-child(2){background:#f59e0b}.dot:nth-child(3){background:#10b981}
-    .browser-screen{background:linear-gradient(180deg,#fff8fc,#fff1f7);border-radius:16px;min-height:280px;padding:16px;color:#6b2149}
-    .mini-card{background:#fff;border:1px solid #fbcfe8;border-radius:16px;padding:12px;margin-top:10px;box-shadow:0 8px 18px rgba(244,114,182,.08)}
-    .mini-title{font-size:15px;font-weight:800;color:#9d174d;margin-bottom:8px}
-    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.pill-row span{font-size:11px;padding:6px 9px;border-radius:999px;background:#fdf2f8;border:1px solid #fbcfe8;color:#be185d}
-    .ming-hero{position:relative;overflow:hidden}
-    .ming-hero::before{content:"";position:absolute;inset:-10% 35% auto -12%;height:220px;background:radial-gradient(circle, rgba(244,114,182,.24), transparent 70%);pointer-events:none}
-    .ming-hero::after{content:"";position:absolute;inset:auto -8% -18% 52%;height:220px;background:radial-gradient(circle, rgba(103,232,249,.16), transparent 70%);pointer-events:none}
-    .system-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
-    .flow-box{padding:18px;border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);position:relative;overflow:hidden}
-    .flow-box strong{display:block;font-size:18px;color:#fff;margin-bottom:8px}
-    .flow-box span{font-size:13px;color:#fbcfe8;line-height:1.6;display:block}
-    .flow-box::after{content:"";position:absolute;right:-18px;bottom:-18px;width:90px;height:90px;border-radius:999px;background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%)}
-    .pulse-line{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:#fff}
-    .pulse-dot{width:10px;height:10px;border-radius:999px;background:#34d399;box-shadow:0 0 0 rgba(52,211,153,.5);animation:pulseDot 1.8s ease-out infinite}
-    .live-board{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:18px}
-    .social-wall{padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.06));border:1px solid rgba(249,168,212,.18)}
-    .post{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.92);color:#6b2149;margin-top:12px;box-shadow:0 12px 28px rgba(0,0,0,.12)}
-    .post:first-child{margin-top:0}
-    .post-meta{font-size:12px;color:#9d174d;font-weight:800;margin-bottom:6px}
-    .post-reactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .post-reactions span{font-size:11px;padding:6px 8px;border-radius:999px;background:#fdf2f8;border:1px solid #fbcfe8;color:#be185d}
-    .match-stack{display:grid;gap:14px}
-    .match-card-live{padding:16px;border-radius:24px;background:linear-gradient(135deg,#fff7fb,#ffe8f5);color:#6b2149;border:1px solid #fbcfe8;box-shadow:0 16px 34px rgba(244,114,182,.12)}
-    .big-emoji{font-size:52px;line-height:1;margin-bottom:8px}
-    .highlight-ring{outline:1px solid rgba(249,168,212,.25);box-shadow:0 0 0 1px rgba(249,168,212,.08),0 30px 80px rgba(244,114,182,.16)}
+    .box{padding:20px}
+    .box .box-title{font-size:16px;font-weight:900;color:#fff;margin-bottom:10px}
+    .box .box-sub{font-size:13px;color:#fbcfe8;line-height:1.6}
+
+    /* Layer diagram */
+    .layer-stack{display:grid;gap:14px;margin-top:18px}
+    .layer{position:relative;padding:18px 20px;border-radius:20px;overflow:hidden}
+    .layer::before{content:"";position:absolute;inset:0;opacity:.12;border-radius:20px}
+    .layer-1{background:linear-gradient(135deg,rgba(244,114,182,.3),rgba(244,114,182,.1));border:1px solid rgba(244,114,182,.4)}
+    .layer-2{background:linear-gradient(135deg,rgba(192,132,252,.3),rgba(192,132,252,.1));border:1px solid rgba(192,132,252,.4)}
+    .layer-3{background:linear-gradient(135deg,rgba(103,232,249,.3),rgba(103,232,249,.1));border:1px solid rgba(103,232,249,.4)}
+    .layer-label{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+    .layer-name{font-size:20px;font-weight:950;color:#fff;margin-bottom:6px}
+    .layer-desc{font-size:13px;color:#fce7f3;opacity:.88}
+    .layer-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:36px;opacity:.3}
+
+    /* Module chips */
+    .module-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+    .module-chip{padding:16px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);text-align:center}
+    .module-chip .m-icon{font-size:28px;margin-bottom:8px}
+    .module-chip .m-name{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px}
+    .module-chip .m-count{font-size:11px;color:#fbcfe8}
+
+    /* ER mini table */
+    .er-flow{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .er-node{padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);text-align:center;min-width:90px}
+    .er-node .e-name{font-size:15px;font-weight:900;color:#fff;margin-bottom:4px}
+    .er-node .e-desc{font-size:11px;color:#fbcfe8}
+    .er-arrow{font-size:22px;color:#f9a8d4;opacity:.6}
+
+    /* Template table visual */
+    .template-visual{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .tpl-box{padding:20px;border-radius:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06)}
+    .tpl-box .tpl-head{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#f9a8d4;margin-bottom:10px}
+    .tpl-box .tpl-name{font-size:17px;font-weight:900;color:#fff;margin-bottom:8px}
+    .tpl-box .tpl-rows{display:grid;gap:6px}
+    .tpl-box .tpl-row{padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.07);font-size:13px;color:#fce7f3}
+    .tpl-box .tpl-note{font-size:12px;color:#fbcfe8;margin-top:8px;font-style:italic}
+    .vs-badge{display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#f9a8d4;opacity:.5}
+
     .floating{animation:floaty 5.2s ease-in-out infinite}
     .floating-slow{animation:floaty 7s ease-in-out infinite}
     .glow{animation:glowPulse 3.2s ease-in-out infinite}
     .shimmer{position:relative;overflow:hidden}
     .shimmer::before{content:"";position:absolute;inset:0;transform:translateX(-130%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);animation:shimmer 3.4s ease-in-out infinite}
+    .pulse-dot{width:10px;height:10px;border-radius:999px;background:#34d399;box-shadow:0 0 0 rgba(52,211,153,.5);animation:pulseDot 1.8s ease-out infinite;display:inline-block}
     .footer-bar{position:fixed;left:0;right:0;bottom:0;height:var(--bottom-gap);display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(15,23,42,.74);backdrop-filter:blur(16px);border-top:1px solid var(--line);z-index:20}
     .footer-left{font-size:13px;color:#fbcfe8}
     .pager{display:flex;gap:10px;align-items:center}
     .icon-btn{width:46px;height:46px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;font-size:22px;font-weight:900;cursor:pointer;box-shadow:0 12px 24px rgba(244,114,182,.22)}
     .slide-num{font-size:13px;color:#fff;font-weight:800;min-width:72px;text-align:center}
     .center{text-align:center}
+    .handoff{border:2px solid rgba(249,168,212,.35);border-radius:24px;padding:20px;margin-top:16px;background:linear-gradient(135deg,rgba(244,114,182,.08),rgba(192,132,252,.06))}
+    .handoff .h-label{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#f9a8d4;margin-bottom:8px}
+    .handoff .h-text{font-size:16px;color:#fff;line-height:1.7}
     @keyframes fade{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}
     @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     @keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(244,114,182,0)}50%{box-shadow:0 0 28px rgba(244,114,182,.18)}}
     @keyframes shimmer{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
     @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 12px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
-
-    @media (max-width: 980px){
+    @media(max-width:980px){
       #topbar{height:auto;min-height:56px;flex-wrap:wrap;padding:10px 12px}
       .nav{order:3;width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
       .nav button{padding:8px 6px;font-size:12px}
       .right{width:100%;justify-content:space-between;flex-wrap:wrap}
       .jump{max-width:none;flex:1 1 100%}
       .slide{padding:20px 14px 30px}
-      .hero,.grid2,.grid3,.grid4,.mock-grid,.system-flow,.live-board{grid-template-columns:1fr}
+      .hero,.grid2,.grid3,.grid4,.module-grid,.template-visual,.er-flow{grid-template-columns:1fr}
       h1{font-size:36px}
-      h2{font-size:28px}
-      .lead{font-size:16px}
+      h2{font-size:26px}
+      .lead{font-size:15px}
+      .layer-stack{gap:10px}
     }
-    @media (max-width: 640px){
+    @media(max-width:640px){
       :root{--bottom-gap:82px}
       .brand{font-size:12px}
       .lang button,.jump,.ghost{font-size:12px;padding:7px 10px}
-      .speaker,.card,.panel,.timeline,.quote,.metric{padding:18px}
+      .speaker,.card,.panel,.timeline,.quote,.metric,.box{padding:16px}
       .icon-btn{width:42px;height:42px}
       .slide-num{font-size:12px;min-width:60px}
       .footer-left{font-size:11px}
@@ -151,564 +165,516 @@
   </style>
 </head>
 <body>
-  <div id="topbar">
-    <div class="brand">Doggy Growth Plan · GG Bond</div>
-    <div class="nav">
-      <button data-target="0" class="active">Intro</button>
-      <button data-target="2">Pet</button>
-      <button data-target="4">AI</button>
-      <button data-target="6">Backend</button>
-      <button data-target="8">Map</button>
-      <button data-target="10">Expansion</button>
-      <button data-target="12">Design</button>
-      <button data-target="14">GitHub</button>
-      <button data-target="15">Close</button>
-    </div>
-    <div class="right">
-      <div class="lang">
-        <button id="zhBtn" class="active" onclick="setLang('zh')">中文</button>
-        <button id="enBtn" onclick="setLang('en')">EN</button>
-      </div>
-      <select id="jump" class="jump"></select>
-    </div>
+
+<div id="topbar">
+  <div class="brand">GG Bond · Technical Architecture</div>
+  <div class="nav">
+    <button data-target="0" class="active">Intro</button>
+    <button data-target="1">Architecture</button>
+    <button data-target="4">Backend</button>
+    <button data-target="7">Database</button>
   </div>
-  <div id="progress"></div>
-
-  <div id="slides">
-    <section class="slide active" id="s0">
-      <div class="wrap hero">
-        <div class="card">
-          <div class="eyebrow" data-cn="CS732 Project Seminar" data-en="CS732 Project Seminar">CS732 Project Seminar</div>
-          <h1><span class="gradient">Doggy Growth Plan</span><br><span data-cn="六人分页面在线演示" data-en="six-speaker online slide deck">六人分页面在线演示</span></h1>
-          <p class="lead" data-cn="这次不是一页 landing。现在是按 6 个成员拆开的在线演示：每个人对应不同页面，而且每个人都有不止一页可以讲。内容已经按 GG Bond 分工、repo 真实实现和 seminar 评分点重排。" data-en="This is no longer a one-page landing site. It is now a six-speaker online slide deck: different pages for different members, with more than one page for each speaker. The content is reorganized around the GG Bond division of work, the real repository implementation, and the seminar rubric.">这次不是一页 landing。现在是按 6 个成员拆开的在线演示：每个人对应不同页面，而且每个人都有不止一页可以讲。内容已经按 GG Bond 分工、repo 真实实现和 seminar 评分点重排。</p>
-          <div class="hero-actions" style="margin-top:22px">
-            <a class="cta primary" href="http://4.155.227.179" target="_blank" rel="noreferrer">🚀 <span data-cn="打开在线 Demo" data-en="Open live demo">打开在线 Demo</span></a>
-            <a class="cta secondary" href="https://github.com/UOA-CS732-S1-2026/group-project-gg-bond" target="_blank" rel="noreferrer">🐙 <span data-cn="查看项目仓库" data-en="View project repo">查看项目仓库</span></a>
-          </div>
-          <div class="chip-row" style="margin-top:20px">
-            <span class="team-tags"><span data-cn="6 位成员" data-en="6 members">6 位成员</span></span>
-            <span class="team-tags"><span data-cn="双语切换" data-en="bilingual switching">双语切换</span></span>
-            <span class="team-tags"><span data-cn="按功能分 speaker" data-en="speaker pages by function">按功能分 speaker</span></span>
-            <span class="team-tags"><span data-cn="可直接拿去讲" data-en="ready for live presentation">可直接拿去讲</span></span>
-          </div>
-        </div>
-        <div class="card qrbox">
-          <h3 data-cn="扫码进入真实演示" data-en="Scan to open the live demo">扫码进入真实演示</h3>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=http://4.155.227.179&margin=10&format=png" alt="QR Code">
-          <div class="qrurl">http://4.155.227.179</div>
-          <p class="sub" data-cn="现场最好只用一台电脑投屏；手机扫码主要是给观众自己看细节。" data-en="For the seminar, it is best to keep one main presentation device; audience phones are mainly for optional detail viewing.">现场最好只用一台电脑投屏；手机扫码主要是给观众自己看细节。</p>
-          <div class="visual floating glow" style="margin-top:4px">
-            <img src="https://raw.githubusercontent.com/UOA-CS732-S1-2026/group-project-gg-bond/main/GG%20Bond.png" alt="GG Bond team visual">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s1">
-      <div class="wrap">
-        <h2 data-cn="页序与讲者安排" data-en="Slide order and speaker allocation">页序与讲者安排</h2>
-        <div class="grid3">
-          <div class="metric"><div class="num">15</div><div class="lab" data-cn="分钟上限" data-en="minute limit">分钟上限</div></div>
-          <div class="metric"><div class="num">6</div><div class="lab" data-cn="位成员都有页面" data-en="members with their own pages">位成员都有页面</div></div>
-          <div class="metric"><div class="num">2+</div><div class="lab" data-cn="每人至少两页" data-en="pages per member">每人至少两页</div></div>
-        </div>
-        <div class="grid2" style="margin-top:18px">
-          <div class="speaker">
-            <h3 data-cn="这一版怎么组织内容" data-en="How this deck is structured">这一版怎么组织内容</h3>
-            <ul class="list">
-              <li data-cn="前半段先建立核心产品链路：宠物创建、状态变化、AI 顾问。" data-en="The first half establishes the core product flow: pet creation, changing states, and the AI advisor.">前半段先建立核心产品链路：宠物创建、状态变化、AI 顾问。</li>
-              <li data-cn="中段转到系统层：架构、社区互动、地图和外部 API。" data-en="The middle section moves to the system layer: architecture, community interaction, maps, and external APIs.">中段转到系统层：架构、社区互动、地图和外部 API。</li>
-              <li data-cn="后半段讲 beyond proposal 扩展、设计系统、多语言和 GitHub 协作。" data-en="The later section covers beyond-proposal expansion, design system, multilingual support, and GitHub collaboration.">后半段讲 beyond proposal 扩展、设计系统、多语言和 GitHub 协作。</li>
-              <li data-cn="最后一页专门把成果和 rubric 对上，再自然进入 Q&A。" data-en="The final slide aligns the work with the rubric and then moves naturally into Q&A.">最后一页专门把成果和 rubric 对上，再自然进入 Q&A。</li>
-            </ul>
-          </div>
-          <div class="speaker">
-            <h3 data-cn="完整团队与覆盖范围" data-en="Full team and coverage">完整团队与覆盖范围</h3>
-            <div class="team-tags">
-              <span>Huanhuan Li</span><span>Xingyan Zhou</span><span>Ming Zhao</span><span>Xiang Zhang</span><span>Kejun Xu</span><span>Jiayi Lyu</span>
-            </div>
-            <div class="talk" style="margin-top:16px">
-              <strong data-cn="这一页主要想传达的是：" data-en="The main point of this page is:">这一页主要想传达的是：</strong>
-              <span data-cn=" 这套演示不是按零散功能堆出来的，而是把六位成员各自负责的部分重新编成一条完整的产品故事线。" data-en=" This deck is not a loose collection of features. It reorganizes each member’s contribution into one coherent product story."> 这套演示不是按零散功能堆出来的，而是把六位成员各自负责的部分重新编成一条完整的产品故事线。</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s2">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Huanhuan Li · Slide 1</div>
-        <h2 data-cn="Digital Pet Growth：先把核心宠物系统做出来" data-en="Digital Pet Growth: build the core pet system first">Digital Pet Growth：先把核心宠物系统做出来</h2>
-        <div class="grid2">
-          <div class="panel">
-            <p class="lead" data-cn="这一部分对应项目最核心的 user journey：用户先创建自己的狗狗，然后看到它的状态随时间变化，再通过操作去照顾它。" data-en="This part covers the core user journey: the user creates a dog, sees its state evolve over time, and interacts with it through care actions.">这一部分对应项目最核心的 user journey：用户先创建自己的狗狗，然后看到它的状态随时间变化，再通过操作去照顾它。</p>
-            <ul class="list" style="margin-top:14px">
-              <li data-cn="breed / birthday / name 创建流程" data-en="breed / birthday / name creation flow">breed / birthday / name 创建流程</li>
-              <li data-cn="4 状态仪表盘：appetite / health / mood / social" data-en="4-status dashboard: appetite / health / mood / social">4 状态仪表盘：appetite / health / mood / social</li>
-              <li data-cn="宠物头像会随着 puppy / adult / senior 切换" data-en="The pet avatar changes across puppy / adult / senior stages">宠物头像会随着 puppy / adult / senior 切换</li>
-              <li data-cn="这一部分也连到数据库建模，因为这些状态和资料都需要有稳定的数据结构去承接。" data-en="This part also connects to the database model, because these pet states and profile fields need a stable structure underneath.">这一部分也连到数据库建模，因为这些状态和资料都需要有稳定的数据结构去承接。</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3 data-cn="Repo 里能对应到的实现" data-en="Repo evidence for this section">Repo 里能对应到的实现</h3>
-            <ul class="list">
-              <li><code>frontend/src/sandbox/PetPageV2.js</code></li>
-              <li><code>frontend/src/components/Pet/CreatePetModal.js</code></li>
-              <li><code>frontend/src/context/PetContext.js</code></li>
-              <li><code>frontend/src/utils/statusDecay.js</code> / <code>statusDecayV2.js</code></li>
-              <li data-cn="并对应到 pet / activity / shared user state 这些数据结构设计思路" data-en="This also maps to the design of pet, activity, and shared user-state structures">并对应到 pet / activity / shared user state 这些数据结构设计思路</li>
-            </ul>
-          </div>
-        </div>
-        <div class="visual floating-slow shimmer" style="margin-top:18px">
-          <img src="assets/slides/pet-growth.svg" alt="Digital pet growth illustration">
-        </div>
-        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="A natural way to say this is:">这一页可以这样表达：</strong><span data-cn=" 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。与此同时，这一部分也逼着我们先把底层数据结构想清楚。" data-en=" We first built the core pet-growth loop so the user does not just see a cute character, but can actually create, care for, and observe a pet that changes over time. At the same time, this also forced us to think clearly about the underlying data structure."> 我们先把最核心的宠物成长链路做出来，让用户不是只看到一个可爱的角色，而是真的能创建、照顾、观察它随时间变化。与此同时，这一部分也逼着我们先把底层数据结构想清楚。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s3">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Huanhuan Li · Slide 2</div>
-        <h2 data-cn="数据持久化与跨设备共享" data-en="Persistence and cross-device sharing">数据持久化与跨设备共享</h2>
-        <div class="grid3">
-          <div class="timeline"><div class="time">01</div><h3 data-cn="本地模式" data-en="Local mode">本地模式</h3><p class="sub" data-cn="如果后端或云服务不可用，localStorage fallback 仍然让 demo 可跑。" data-en="If backend or cloud services are unavailable, localStorage fallback keeps the demo usable.">如果后端或云服务不可用，localStorage fallback 仍然让 demo 可跑。</p></div>
-          <div class="timeline"><div class="time">02</div><h3 data-cn="云端同步" data-en="Cloud sync">云端同步</h3><p class="sub" data-cn="PetContext 会订阅 Firestore 文档，在线模式下状态能同步。" data-en="PetContext subscribes to Firestore documents, so state can sync in online mode.">PetContext 会订阅 Firestore 文档，在线模式下状态能同步。</p></div>
-          <div class="timeline"><div class="time">03</div><h3 data-cn="数据库结构" data-en="Database structure">数据库结构</h3><p class="sub" data-cn="Huanhuan 这部分不仅做前端流程，也要考虑 MySQL schema 怎么承接宠物资料、状态记录和后续共享模块。" data-en="Huanhuan’s part is not only about the frontend flow. It also involves thinking through how the MySQL schema should support pet profiles, state records, and later shared modules.">Huanhuan 这部分不仅做前端流程，也要考虑 MySQL schema 怎么承接宠物资料、状态记录和后续共享模块。</p></div>
-        </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里想表达的是：我们不只是做界面，还把数据库结构和状态存储一起想清楚了，所以宠物资料、活动记录和跨设备共享才有稳定基础。" data-en="The key point here is that we did not just design interfaces. We also thought through the database structure and state persistence, so pet profiles, activity records, and cross-device sharing all have a stable foundation.">这里想表达的是：我们不只是做界面，还把数据库结构和状态存储一起想清楚了，所以宠物资料、活动记录和跨设备共享才有稳定基础。</p></div>
-        <div class="mock-grid" style="margin-top:18px">
-          <div class="phone floating">
-            <div class="phone-screen">
-              <div class="mini-title">Pet Dashboard</div>
-              <div class="mini-card"><strong>Cookie · Corgi</strong><div class="pill-row"><span>appetite 82%</span><span>health 91%</span><span>mood 76%</span><span>social 68%</span></div></div>
-              <div class="mini-card">🐶 avatar stage: adult</div>
-              <div class="mini-card">🕒 last walk synced 2 mins ago</div>
-            </div>
-          </div>
-          <div class="browser floating-slow">
-            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <div class="browser-screen">
-              <div class="mini-title">Cross-device State</div>
-              <div class="mini-card">Firestore snapshot active</div>
-              <div class="mini-card">Fallback storage available</div>
-              <div class="mini-card">Chat / rewards / inventory share the same user state</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s4">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Xingyan Zhou · Slide 1</div>
-        <h2 data-cn="AI Health Advisor：不是普通聊天框" data-en="AI Health Advisor: more than a generic chat box">AI Health Advisor：不是普通聊天框</h2>
-        <div class="grid2">
-          <div class="panel">
-            <p class="lead" data-cn="AI 页不是随便接一个大模型就完了。它会读取宠物名字、品种、年龄和当前 4 个状态，再决定怎么回答。" data-en="The AI page is not just a simple LLM wrapper. It reads the pet’s name, breed, age, and current four status values before generating a response.">AI 页不是随便接一个大模型就完了。它会读取宠物名字、品种、年龄和当前 4 个状态，再决定怎么回答。</p>
-            <ul class="list" style="margin-top:14px">
-              <li data-cn="AI 聊天界面 / 消息流 / 输入区" data-en="AI chat UI / message stream / input area">AI 聊天界面 / 消息流 / 输入区</li>
-              <li data-cn="Smart Prompt：会根据状态给建议问题" data-en="Smart Prompt: recommends context-aware questions">Smart Prompt：会根据状态给建议问题</li>
-              <li data-cn="中文优先 system prompt" data-en="Chinese-first system prompt">中文优先 system prompt</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3 data-cn="Repo 对应点" data-en="Repo evidence">Repo 对应点</h3>
-            <ul class="list">
-              <li><code>frontend/src/pages/AIPage.js</code></li>
-              <li><code>api/ai.js</code></li>
-              <li data-cn="Gemini 调用 + fallback 响应都已经写进代码" data-en="Gemini calls and fallback responses both exist in the code">Gemini 调用 + fallback 响应都已经写进代码</li>
-            </ul>
-          </div>
-        </div>
-        <div class="visual shimmer" style="margin-top:18px">
-          <img src="assets/slides/ai-advisor.svg" alt="AI advisor architecture illustration">
-        </div>
-        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="One clean way to phrase it is:">这一页可以这样表达：</strong><span data-cn=" 这一页的重点是，我们的 AI 顾问不是独立聊天机器人，它会读取宠物当前状态，所以回答会跟这只狗本身有关。" data-en=" The main point on this slide is that our AI advisor is not a standalone chatbot. It reads the pet’s live state, so the answers are tied to this specific dog."> 这一页的重点是，我们的 AI 顾问不是独立聊天机器人，它会读取宠物当前状态，所以回答会跟这只狗本身有关。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s5">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Xingyan Zhou · Slide 2</div>
-        <h2 data-cn="为什么这块有技术含量" data-en="Why this is technically meaningful">为什么这块有技术含量</h2>
-        <div class="grid3">
-          <div class="metric"><div class="num">Context</div><div class="lab" data-cn="不是裸 prompt，而是 pet-context 注入" data-en="not a bare prompt; pet context is injected">不是裸 prompt，而是 pet-context 注入</div></div>
-          <div class="metric"><div class="num">Fallback</div><div class="lab" data-cn="后端挂了也能演示" data-en="still demoable when backend fails">后端挂了也能演示</div></div>
-          <div class="metric"><div class="num">Bilingual</div><div class="lab" data-cn="更贴近真实用户使用" data-en="closer to real user behavior">更贴近真实用户使用</div></div>
-        </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这里比较有分量的地方在于，AI 不是装饰功能，而是和宠物状态、语言偏好、故障降级一起设计出来的。" data-en="What gives this section weight is that AI is not decorative—it was designed together with pet state, language preference, and failure handling.">这里比较有分量的地方在于，AI 不是装饰功能，而是和宠物状态、语言偏好、故障降级一起设计出来的。</p></div>
-        <div class="mock-grid" style="margin-top:18px">
-          <div class="phone floating">
-            <div class="phone-screen">
-              <div class="mini-title">AI Chat</div>
-              <div class="mini-card">🤖 How much exercise does Cookie need today?</div>
-              <div class="mini-card">Based on mood 76% and health 91%, a light evening walk is a good option.</div>
-              <div class="pill-row"><span>Gemini</span><span>context prompt</span><span>CN first</span></div>
-            </div>
-          </div>
-          <div class="phone floating-slow">
-            <div class="phone-screen">
-              <div class="mini-title">Smart Prompts</div>
-              <div class="mini-card">🍖 feeding amount</div>
-              <div class="mini-card">🏃 walk duration</div>
-              <div class="mini-card">🌡 fever signs</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s6">
-      <div class="wrap ming-hero">
-        <div class="speaker-tag star">👤 Ming Zhao · Slide 1 · System Orchestrator</div>
-        <h2 data-cn="整体架构：把多个功能接成一个系统" data-en="System architecture: connecting features into one product">整体架构：把多个功能接成一个系统</h2>
-        <div class="grid4">
-          <div class="timeline"><div class="time">Frontend</div><p class="sub">React · Router · Motion</p></div>
-          <div class="timeline"><div class="time">Data</div><p class="sub">Firebase Auth · Firestore · local fallback</p></div>
-          <div class="timeline"><div class="time">API</div><p class="sub">Express / serverless handlers</p></div>
-          <div class="timeline"><div class="time">Deploy</div><p class="sub">Render · Vercel · test VM</p></div>
-        </div>
-        <div class="panel" style="margin-top:18px">
-          <p class="lead" data-cn="这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。" data-en="The goal here is not just to list many technologies, but to explain why this architecture lets the pet system, AI, map, and community modules work together.">这里要讲清楚的不是“我们技术栈很多”，而是“为什么这个架构能让宠物、AI、地图、社区这些模块协同工作”。</p>
-          <div class="pulse-line"><span class="pulse-dot"></span><span data-cn="Live view：pet state → AI → community → map → deployment 都在同一条系统链路里" data-en="Live view: pet state → AI → community → map → deployment all live in one connected system chain">Live view：pet state → AI → community → map → deployment 都在同一条系统链路里</span></div>
-        </div>
-        <div class="system-flow">
-          <div class="flow-box highlight-ring floating"><strong data-cn="用户入口" data-en="User entry">用户入口</strong><span data-cn="登录、创建宠物、进入主页" data-en="login, create a pet, enter the home screen">登录、创建宠物、进入主页</span></div>
-          <div class="flow-box highlight-ring floating-slow"><strong data-cn="状态中枢" data-en="State hub">状态中枢</strong><span data-cn="PetContext / Firestore / local fallback" data-en="PetContext / Firestore / local fallback">PetContext / Firestore / local fallback</span></div>
-          <div class="flow-box highlight-ring floating"><strong data-cn="外部能力" data-en="External capabilities">外部能力</strong><span data-cn="Gemini、Google Places、serverless API" data-en="Gemini, Google Places, serverless APIs">Gemini、Google Places、serverless API</span></div>
-          <div class="flow-box highlight-ring floating-slow"><strong data-cn="最终体验" data-en="Final experience">最终体验</strong><span data-cn="AI 建议、社区互动、地图场景、稳定部署" data-en="AI advice, community interaction, map scenarios, and stable deployment">AI 建议、社区互动、地图场景、稳定部署</span></div>
-        </div>
-        <div class="talk"><strong data-cn="这一段可以这样表达：" data-en="One clean way to phrase it is:">这一段可以这样表达：</strong><span data-cn=" 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。" data-en=" We separated frontend interaction, user state, external APIs, and deployment, but they all serve the same product flow, so the result is not a pile of disconnected features."> 我们把前端交互、用户状态、外部 API 和部署拆开，但它们最后都服务同一条产品链路，所以不会变成一堆彼此断开的功能。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s7">
-      <div class="wrap ming-hero">
-        <div class="speaker-tag star">👤 Ming Zhao · Slide 2 · Live Social Layer</div>
-        <h2 data-cn="Community / Matchmaking / Chat / Achievements" data-en="Community / Matchmaking / Chat / Achievements">Community / Matchmaking / Chat / Achievements</h2>
-        <div class="grid2">
-          <div class="panel">
-            <ul class="list">
-              <li data-cn="社区论坛：发帖 / 点赞 / 评论 / 狗视角日记" data-en="Community forum: posts / likes / comments / dog-perspective diary">社区论坛：发帖 / 点赞 / 评论 / 狗视角日记</li>
-              <li data-cn="帖子情绪反应：heart / tear / paw 联动 pet dashboard" data-en="Emotion reactions: heart / tear / paw linked to the pet dashboard">帖子情绪反应：heart / tear / paw 联动 pet dashboard</li>
-              <li data-cn="Pet Matchmaking：like / skip + 品种 / 位置过滤" data-en="Pet Matchmaking: like / skip + breed / location filtering">Pet Matchmaking：like / skip + 品种 / 位置过滤</li>
-              <li data-cn="Chat 私信界面 + Achievement Wall" data-en="Chat DM interface + Achievement Wall">Chat 私信界面 + Achievement Wall</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <p class="lead" data-cn="这页最重要的是让老师看到：这不是单人养宠工具，而是往“宠物社交平台”方向扩出来了。" data-en="The key message is that this is not only a solo pet-care tool. It expands toward a social platform for pet owners.">这页最重要的是让老师看到：这不是单人养宠工具，而是往“宠物社交平台”方向扩出来了。</p>
-            <p class="sub" style="margin-top:12px" data-cn="而且 Firestore 实时同步让“在线互动”这个点不是口头概念，而是产品能力。" data-en="Firestore real-time sync makes “online interaction” a real product capability rather than just a talking point.">而且 Firestore 实时同步让“在线互动”这个点不是口头概念，而是产品能力。</p>
-          </div>
-        </div>
-        <div class="visual floating-slow" style="margin-top:18px">
-          <img src="assets/slides/social-map.svg" alt="Community, map, and matchmaking illustration">
-        </div>
-        <div class="live-board">
-          <div class="social-wall highlight-ring shimmer">
-            <h3 data-cn="Live Community Feed" data-en="Live Community Feed">Live Community Feed</h3>
-            <div class="post floating">
-              <div class="post-meta">Luna · 2 min ago</div>
-              <div data-cn="今天遛弯打卡成功，还认识了一只新的边牧朋友。" data-en="Walk check-in completed today, and Luna met a new border collie friend.">今天遛弯打卡成功，还认识了一只新的边牧朋友。</div>
-              <div class="post-reactions"><span>❤️ 24</span><span>🐾 11</span><span>💧 3</span></div>
-            </div>
-            <div class="post floating-slow">
-              <div class="post-meta">System reaction</div>
-              <div data-cn="social +4 · mood +2 已同步回宠物状态面板" data-en="social +4 · mood +2 synced back to the pet status dashboard">social +4 · mood +2 已同步回宠物状态面板</div>
-              <div class="post-reactions"><span>Firestore sync</span><span>live update</span></div>
-            </div>
-          </div>
-          <div class="match-stack">
-            <div class="match-card-live floating highlight-ring">
-              <div class="big-emoji">💘</div>
-              <div class="mini-title">Pet Matchmaking</div>
-              <div data-cn="Breed: Corgi · Location: Auckland · Swipe-like flow" data-en="Breed: Corgi · Location: Auckland · Swipe-like flow">Breed: Corgi · Location: Auckland · Swipe-like flow</div>
-              <div class="pill-row"><span>like</span><span>skip</span><span>breed filter</span><span>location filter</span></div>
-            </div>
-            <div class="match-card-live floating-slow">
-              <div class="big-emoji">🏆</div>
-              <div class="mini-title">Achievement Wall</div>
-              <div data-cn="社区行为不只是展示，还会反过来推动奖励、成就和宠物成长。" data-en="Community behavior is not just displayed; it also drives rewards, achievements, and pet growth.">社区行为不只是展示，还会反过来推动奖励、成就和宠物成长。</div>
-            </div>
-          </div>
-        </div>
-        <div class="mock-grid" style="margin-top:18px">
-          <div class="browser floating">
-            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <div class="browser-screen">
-              <div class="mini-title">Community Feed</div>
-              <div class="mini-card">🐶 Luna posted: Had a great walk today!</div>
-              <div class="mini-card">❤️ 24 · 💧 3 · 🐾 11</div>
-              <div class="mini-card">comment thread synced in real time</div>
-            </div>
-          </div>
-          <div class="phone floating-slow">
-            <div class="phone-screen">
-              <div class="mini-title">Match + Chat</div>
-              <div class="mini-card">Breed: Corgi · Auckland</div>
-              <div class="mini-card">💘 like · ⏭ skip</div>
-              <div class="mini-card">DM opened with nearby pet owner</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s8">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Xiang Zhang · Slide 1</div>
-        <h2 data-cn="Map + External APIs：把真实世界接进来" data-en="Map + External APIs: connecting the real world">Map + External APIs：把真实世界接进来</h2>
-        <div class="grid2">
-          <div class="panel">
-            <ul class="list">
-              <li data-cn="Google Maps & Places API 申请与 key 配置" data-en="Google Maps & Places API setup and key management">Google Maps & Places API 申请与 key 配置</li>
-              <li data-cn="Pet-Friendly Map 页面" data-en="Pet-friendly map page">Pet-Friendly Map 页面</li>
-              <li data-cn="散步 check-in + nearby places 代理查询" data-en="Walk check-ins + nearby places proxy lookups">散步 check-in + nearby places 代理查询</li>
-              <li data-cn="Firebase / Gemini / Maps 三条外部依赖打通" data-en="Firebase / Gemini / Maps external integrations connected together">Firebase / Gemini / Maps 三条外部依赖打通</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h3 data-cn="Repo 对应点" data-en="Repo evidence">Repo 对应点</h3>
-            <ul class="list">
-              <li><code>frontend/src/pages/MapPage.js</code></li>
-              <li><code>api/map.js</code></li>
-              <li data-cn="Google Places nearby search + check-in 写回" data-en="Google Places nearby search + check-in write-back">Google Places nearby search + check-in 写回</li>
-            </ul>
-          </div>
-        </div>
-        <div class="talk"><strong data-cn="这页直接讲：" data-en="On this slide, just say:">这页直接讲：</strong><span data-cn=" 地图页让这个项目从虚拟宠物应用走到现实场景，因为用户真的可以找附近可去的地方，并把散步记录写回系统。" data-en=" This map page pushes the project beyond a virtual pet app into a real-world scenario, because users can find nearby places and write walk check-ins back into the system."> 地图页让这个项目从虚拟宠物应用走到现实场景，因为用户真的可以找附近可去的地方，并把散步记录写回系统。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s9">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Xiang Zhang · Slide 2</div>
-        <h2 data-cn="视觉资产与数据接入" data-en="Visual assets and data integration">视觉资产与数据接入</h2>
-        <div class="grid3">
-          <div class="speaker"><h3 data-cn="Marketplace" data-en="Marketplace">Marketplace</h3><p class="sub" data-cn="商品数据接入 + 8 款狗粮 seeding，为后面商城功能打底。" data-en="Product data integration plus 8 seeded dog-food items provide a base for the marketplace flow.">商品数据接入 + 8 款狗粮 seeding，为后面商城功能打底。</p></div>
-          <div class="speaker"><h3 data-cn="Adopt Centre" data-en="Adopt Centre">Adopt Centre</h3><p class="sub" data-cn="领养卡片不只是 UI，而是有数据层支持。" data-en="Adoption cards are supported by a data layer, not just static UI.">领养卡片不只是 UI，而是有数据层支持。</p></div>
-          <div class="speaker"><h3 data-cn="Visual Assets" data-en="Visual Assets">Visual Assets</h3><p class="sub" data-cn="手绘宠物、icon、配色样张和素材整理，让页面更像真实产品。" data-en="Hand-drawn pets, icons, palette samples, and organized visual assets help the app feel more like a real product.">手绘宠物、icon、配色样张和素材整理，让页面更像真实产品。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s10">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Kejun Xu · Slide 1</div>
-        <h2 data-cn="Beyond Proposal：把产品从核心功能扩成平台" data-en="Beyond the proposal: expanding from core app to platform">Beyond Proposal：把产品从核心功能扩成平台</h2>
-        <div class="grid3">
-          <div class="timeline"><div class="time">Shop</div><p class="sub">Marketplace / 收藏 / 发布 / 详情</p></div>
-          <div class="timeline"><div class="time">Adopt</div><p class="sub">Adopt Centre / 品种 / 个性 / 健康指标</p></div>
-          <div class="timeline"><div class="time">Tabs</div><p class="sub">Inventory / Leaderboard / Rewards / Training / Health Records</p></div>
-        </div>
-        <div class="quote" style="margin-top:18px"><p class="lead" data-cn="这一页真正想表达的是：团队没有停在最小可交付，而是继续把它往完整宠物生活平台去扩。" data-en="What this slide really shows is that the team did not stop at the minimum viable submission, and kept expanding the app toward a fuller pet lifestyle platform.">这一页真正想表达的是：团队没有停在最小可交付，而是继续把它往完整宠物生活平台去扩。</p></div>
-        <div class="talk"><strong data-cn="可以这样过渡：" data-en="A smooth transition is:">可以这样过渡：</strong><span data-cn=" 到这里我们已经不只是证明核心功能能跑，而是开始证明这个项目有继续成长成完整产品的空间。" data-en=" At this point, we are no longer only proving that the core features work—we are also showing that the project can continue growing into a fuller product."> 到这里我们已经不只是证明核心功能能跑，而是开始证明这个项目有继续成长成完整产品的空间。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s11">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Kejun Xu · Slide 2</div>
-        <h2 data-cn="为什么这一块最能打 Technical Ambition" data-en="Why this section is strongest for Technical Ambition">为什么这一块最能打 Technical Ambition</h2>
-        <div class="grid2">
-          <div class="panel">
-            <ul class="list">
-              <li data-cn="不只完成 proposal 核心，而是额外做了 v3 多 tab 结构" data-en="Beyond the proposal core, the team added a v3 multi-tab structure">不只完成 proposal 核心，而是额外做了 v3 多 tab 结构</li>
-              <li data-cn="把数据、导航、状态管理和视觉风格一起扩展" data-en="Data, navigation, state management, and visual language were all extended together">把数据、导航、状态管理和视觉风格一起扩展</li>
-              <li data-cn="让项目从单功能 demo 变成更完整的产品原型" data-en="This turns the project from a single-feature demo into a fuller product prototype">让项目从单功能 demo 变成更完整的产品原型</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <p class="lead" data-cn="如果老师问‘你们 beyond proposal 的东西是什么’，这一页就是最直接的回答。" data-en="If the markers ask what exactly goes beyond the original proposal, this slide gives the most direct answer.">如果老师问‘你们 beyond proposal 的东西是什么’，这一页就是最直接的回答。</p>
-          </div>
-        </div>
-        <div class="visual shimmer glow" style="margin-top:18px">
-          <img src="assets/slides/expansion-design.svg" alt="Expansion and design system illustration">
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s12">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Jiayi Lyu · Slide 1</div>
-        <h2 data-cn="Design System：让它看起来像产品，不像作业拼图" data-en="Design System: making it feel like a product, not a stitched assignment">Design System：让它看起来像产品，不像作业拼图</h2>
-        <div class="grid2">
-          <div class="panel">
-            <ul class="list">
-              <li data-cn="卡片、阴影、间距和粉色主题统一" data-en="Cards, shadows, spacing, and the pink theme were unified">卡片、阴影、间距和粉色主题统一</li>
-              <li data-cn="framer-motion 动画系统" data-en="framer-motion animation system">framer-motion 动画系统</li>
-              <li data-cn="空状态插画与素材整理" data-en="Empty-state illustrations and asset organization">空状态插画与素材整理</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <p class="lead" data-cn="这部分经常容易被忽视，但它直接决定了演示时老师感受到的是“很多功能拼在一起”，还是“一个统一产品”。" data-en="This work is often overlooked, but it determines whether the seminar audience sees a pile of features or a coherent product. ">这部分经常容易被忽视，但它直接决定了演示时老师感受到的是“很多功能拼在一起”，还是“一个统一产品”。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s13">
-      <div class="wrap">
-        <div class="speaker-tag">👤 Jiayi Lyu · Slide 2</div>
-        <h2 data-cn="多语言与文档：把可用性补完整" data-en="i18n and documentation: completing usability">多语言与文档：把可用性补完整</h2>
-        <div class="grid3">
-          <div class="speaker"><h3 data-cn="i18n" data-en="i18n">i18n</h3><p class="sub" data-cn="中 / 英 / 日 / 毛利，13 个 tab 覆盖，本地持久化语言选择。" data-en="Chinese / English / Japanese / Māori across 13 tabs, with local persistence for language choice.">中 / 英 / 日 / 毛利，13 个 tab 覆盖，本地持久化语言选择。</p></div>
-          <div class="speaker"><h3 data-cn="Slide Deck" data-en="Slide Deck">Slide Deck</h3><p class="sub" data-cn="演示页本身也是设计产出的一部分，负责把复杂功能讲清楚。" data-en="The slide deck itself is part of the design output, helping the team explain complex functionality clearly.">演示页本身也是设计产出的一部分，负责把复杂功能讲清楚。</p></div>
-          <div class="speaker"><h3 data-cn="README 中文版" data-en="Chinese README">README 中文版</h3><p class="sub" data-cn="让文档不只服务组员，也服务展示和交接。" data-en="Documentation supports not only the team itself, but also presentation clarity and handover quality.">让文档不只服务组员，也服务展示和交接。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="s14">
-      <div class="wrap">
-        <div class="speaker-tag">🐙 GitHub / Collaboration</div>
-        <h2 data-cn="我们实际用到的 GitHub 技术与协作方式" data-en="GitHub techniques and collaboration practices we actually used">我们实际用到的 GitHub 技术与协作方式</h2>
-        <div class="grid2">
-          <div class="panel">
-            <ul class="list">
-              <li data-cn="GitHub repo 作为团队单一代码源" data-en="GitHub repo as the team’s single source of code truth">GitHub repo 作为团队单一代码源</li>
-              <li data-cn="branch protection：主分支需要 PR + reviewer" data-en="branch protection: the main branch requires PRs and review">branch protection：主分支需要 PR + reviewer</li>
-              <li data-cn="feature branching：不同功能并行开发" data-en="feature branching for parallel feature work">feature branching：不同功能并行开发</li>
-              <li data-cn="commit history 作为协作证据" data-en="commit history as evidence of collaboration">commit history 作为协作证据</li>
-              <li data-cn="README / deployment notes 支撑交接和演示" data-en="README and deployment notes support handover and demo delivery">README / deployment notes 支撑交接和演示</li>
-            </ul>
-          </div>
-          <div class="browser floating-slow">
-            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <div class="browser-screen">
-              <div class="mini-title">GitHub Workflow</div>
-              <div class="mini-card">main protected</div>
-              <div class="mini-card">feature branches → pull requests → review → merge</div>
-              <div class="mini-card">deployment notes kept in repo</div>
-              <div class="pill-row"><span>PR review</span><span>branch protection</span><span>collaboration</span><span>history</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="talk"><strong data-cn="这一页可以这样表达：" data-en="One clean way to phrase it is:">这一页可以这样表达：</strong><span data-cn=" 除了产品功能本身，我们也用 GitHub 把协作过程结构化，包括受保护主分支、PR 合并流程，以及部署记录和文档，这些都能直接对应到课程对 collaboration 和 project management 的要求。" data-en=" Besides the product features themselves, we also used GitHub to structure collaboration, including a protected main branch, PR-based merging, and deployment notes. These map directly to the course expectations for collaboration and project management."> 除了产品功能本身，我们也用 GitHub 把协作过程结构化，包括受保护主分支、PR 合并流程，以及部署记录和文档，这些都能直接对应到课程对 collaboration 和 project management 的要求。</span></div>
-      </div>
-    </section>
-
-    <section class="slide" id="s15">
-      <div class="wrap">
-        <h2 data-cn="最后总结：这份演示该怎么收" data-en="Final wrap-up: how to close the presentation">最后总结：这份演示该怎么收</h2>
-        <div class="grid2">
-          <div class="panel">
-            <h3 data-cn="对 rubric 的最强对应" data-en="Strongest rubric connections">对 rubric 的最强对应</h3>
-            <ul class="list">
-              <li data-cn="Functionality：核心养宠链路 + AI + 地图 + 社区" data-en="Functionality: core pet flow + AI + map + community">Functionality：核心养宠链路 + AI + 地图 + 社区</li>
-              <li data-cn="Project Management：清晰的六人分工 + GitHub 协作流程" data-en="Project Management: clear six-member ownership + GitHub workflow">Project Management：清晰的六人分工 + GitHub 协作流程</li>
-              <li data-cn="Technical Ambition：Gemini / Places / Firestore / beyond proposal 扩展" data-en="Technical Ambition: Gemini / Places / Firestore / beyond-proposal expansion">Technical Ambition：Gemini / Places / Firestore / beyond proposal 扩展</li>
-              <li data-cn="Testing & Deployment：真实 test server 与部署记录" data-en="Testing & Deployment: real test server and deployment record">Testing & Deployment：真实 test server 与部署记录</li>
-            </ul>
-          </div>
-          <div class="quote">
-            <p class="lead" data-cn="最后可以直接这样收：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。" data-en="A clean closing line is: Doggy Growth Plan is not just a cute pet demo, but a full platform prototype that integrates digital pet growth, AI advice, social interaction, map-based experiences, and extended services.">最后可以直接这样收：Doggy Growth Plan 不只是一个可爱的宠物 demo，而是一个把数字宠物成长、AI 咨询、社交互动、地图场景和扩展服务整合到一起的完整平台原型。</p>
-            <p class="sub" style="margin-top:12px" data-cn="Thank you for listening. We welcome your questions." data-en="Thank you for listening. We welcome your questions.">Thank you for listening. We welcome your questions.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div class="footer-bar">
-    <div class="footer-left">Doggy Growth Plan · GG Bond · <span id="footerLabel">Slide 1 / 16</span></div>
-    <div class="pager">
-      <button class="icon-btn" onclick="prevSlide()">‹</button>
-      <div class="slide-num" id="slideNum">1 / 16</div>
-      <button class="icon-btn" onclick="nextSlide()">›</button>
+  <div class="right">
+    <div class="lang">
+      <button id="zhBtn" class="active" onclick="setLang('zh')">中文</button>
+      <button id="enBtn" onclick="setLang('en')">EN</button>
     </div>
+    <select id="jump" class="jump"></select>
   </div>
+</div>
+<div id="progress"></div>
 
-  <script>
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const jump = document.getElementById('jump');
-    const progress = document.getElementById('progress');
-    const slideNum = document.getElementById('slideNum');
-    const footerLabel = document.getElementById('footerLabel');
-    const navButtons = Array.from(document.querySelectorAll('.nav button'));
-    let current = 0;
-    let lang = 'zh';
+<div id="slides">
 
-    const labels = [
-      ['开场 / Opening','Opening'],
-      ['讲者安排 / Speaker Plan','Speaker Plan'],
-      ['Huanhuan 1','Huanhuan 1'],
-      ['Huanhuan 2','Huanhuan 2'],
-      ['Xingyan 1','Xingyan 1'],
-      ['Xingyan 2','Xingyan 2'],
-      ['Ming 1','Ming 1'],
-      ['Ming 2','Ming 2'],
-      ['Xiang 1','Xiang 1'],
-      ['Xiang 2','Xiang 2'],
-      ['Kejun 1','Kejun 1'],
-      ['Kejun 2','Kejun 2'],
-      ['Jiayi 1','Jiayi 1'],
-      ['Jiayi 2','Jiayi 2'],
-      ['GitHub / Collaboration','GitHub / Collaboration'],
-      ['总结 / Closing','Closing']
-    ];
+  <!-- ===================== SLIDE 0: Opening ===================== -->
+  <section class="slide active" id="s0">
+    <div class="wrap hero">
+      <div class="card">
+        <div class="eyebrow">CS732 · Technical Architecture Demo</div>
+        <h1><span class="gradient">GG Bond</span><br><span data-cn="技术架构在线演示" data-en="Technical Architecture Demo">技术架构在线演示</span></h1>
+        <p class="lead" data-cn="这个演示分为三个部分：总体架构、后端与接口、数据库设计。适合 seminar 讲解使用。" data-en="This demo is divided into three parts: overall architecture, backend and APIs, and database design. Ready for seminar presentation.">这个演示分为三个部分：总体架构、后端与接口、数据库设计。适合 seminar 讲解使用。</p>
+        <div class="hero-actions" style="margin-top:20px">
+          <a class="cta primary" href="http://4.155.227.179" target="_blank" rel="noreferrer">🚀 <span data-cn="打开在线 Demo" data-en="Open live demo">打开在线 Demo</span></a>
+          <a class="cta secondary" href="https://github.com/kndhjk/doggy-growth-plan" target="_blank" rel="noreferrer">🐙 <span data-cn="查看项目仓库" data-en="View project repo">查看项目仓库</span></a>
+        </div>
+        <div class="chip-row" style="margin-top:16px">
+          <span class="team-tags"><span>React</span></span>
+          <span class="team-tags"><span>Express</span></span>
+          <span class="team-tags"><span>MySQL 8</span></span>
+          <span class="team-tags"><span>Firebase</span></span>
+        </div>
+        <div style="margin-top:24px">
+          <h3 data-cn="团队成员" data-en="Team Members" style="color:#f9a8d4;font-size:14px;font-weight:900;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em">团队成员</h3>
+          <div class="team-tags">
+            <span>Huanhuan Li</span>
+            <span>Jiayi Lyu</span>
+            <span>Xiang Zhang</span>
+            <span>Ming Zhao</span>
+            <span>Xingyan Zhou</span>
+            <span>Kejun Xu</span>
+          </div>
+        </div>
+        <div class="talk" style="margin-top:16px">
+          <strong data-cn="讲解安排：" data-en="Speaking order:">讲解安排：</strong>
+          <span data-cn=" 赵明讲总体架构 → 队友讲后端接口 → 第三位讲数据库" data-en=" Ming Zhao covers overall architecture → teammate covers backend & APIs → third speaker covers database"> 赵明讲总体架构 → 队友讲后端接口 → 第三位讲数据库</span>
+        </div>
+      </div>
+      <div class="card qrbox">
+        <h3 data-cn="扫码进入真实演示" data-en="Scan to open live demo">扫码进入真实演示</h3>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=http://4.155.227.179&margin=10&format=png" alt="QR Code">
+        <div class="qrurl">http://4.155.227.179</div>
+        <p class="sub" style="margin-top:8px" data-cn="现场用一台电脑投屏即可；手机扫码供观众自己看细节。" data-en="Use one computer for projection; audience phones for optional detail viewing.">现场用一台电脑投屏即可；手机扫码供观众自己看细节。</p>
+      </div>
+    </div>
+  </section>
 
-    function populateJump(){
-      jump.innerHTML = '';
-      labels.forEach((pair, i) => {
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `${i+1}. ${lang === 'zh' ? pair[0] : pair[1]}`;
-        jump.appendChild(opt);
-      });
-    }
+  <!-- ===================== SLIDE 1: Three Layers (Ming Zhao) ===================== -->
+  <section class="slide" id="s1">
+    <div class="wrap">
+      <div class="speaker-tag star">👤 赵明 · Part 1 · Slide 1/3</div>
+      <h2 data-cn="系统分为三层" data-en="Our System Has Three Layers">系统分为三层</h2>
+      <p class="lead" data-cn="整个 GG Bond 平台分成三层。每一层只做自己的事，互不干扰。" data-en="The whole GG Bond platform is divided into three layers. Each layer only does its own job.">整个 GG Bond 平台分成三层。每一层只做自己的事，互不干扰。</p>
+      <div class="layer-stack">
+        <div class="layer layer-1">
+          <div class="layer-label">Layer 1 — <span data-cn="前端" data-en="Frontend">前端</span></div>
+          <div class="layer-name" data-cn="用户看到和操作的部分" data-en="What users see and interact with">用户看到和操作的部分</div>
+          <div class="layer-desc">React · React Router · Framer Motion · Firebase</div>
+          <div class="layer-icon">🎨</div>
+        </div>
+        <div class="layer layer-2">
+          <div class="layer-label">Layer 2 — <span data-cn="后端" data-en="Backend">后端</span></div>
+          <div class="layer-name" data-cn="处理业务逻辑" data-en="Handles business logic">处理业务逻辑</div>
+          <div class="layer-desc">Node.js · Express · RESTful API · mysql2</div>
+          <div class="layer-icon">⚙️</div>
+        </div>
+        <div class="layer layer-3">
+          <div class="layer-label">Layer 3 — <span data-cn="数据库" data-en="Database">数据库</span></div>
+          <div class="layer-name" data-cn="保存所有数据" data-en="Stores all data">保存所有数据</div>
+          <div class="layer-desc">MySQL 8.0 · 14 tables · 7 functional modules</div>
+          <div class="layer-icon">🗄️</div>
+        </div>
+      </div>
+      <div class="talk">
+        <strong data-cn="可以这样讲：" data-en="One clean way to say it:">可以这样讲：</strong>
+        <span data-cn=" 很好记：前端管界面，后端管逻辑，数据库管存储。三层各做各的事，所以改其中一层不会影响另外两层。" data-en=" Easy to remember: frontend handles the UI, backend handles the logic, database handles storage. Each layer does its own job, so changing one layer does not break the others."> 很好记：前端管界面，后端管逻辑，数据库管存储。三层各做各的事，所以改其中一层不会影响另外两层。</span>
+      </div>
+    </div>
+  </section>
 
-    function updateNav(){
-      navButtons.forEach(btn => btn.classList.remove('active'));
-      let activeGroup = 0;
-      const breaks = [0,2,4,6,8,10,12,14,15];
-      for(let i=0;i<breaks.length;i++) if(current >= breaks[i]) activeGroup = breaks[i];
-      const targetBtn = navButtons.find(btn => Number(btn.dataset.target) === activeGroup);
-      if(targetBtn) targetBtn.classList.add('active');
-    }
+  <!-- ===================== SLIDE 2: Frontend (Ming Zhao) ===================== -->
+  <section class="slide" id="s2">
+    <div class="wrap">
+      <div class="speaker-tag star">👤 赵明 · Part 1 · Slide 2/3</div>
+      <h2 data-cn="前端用了什么" data-en="Frontend Tech Stack">前端用了什么</h2>
+      <div class="grid4" style="margin-top:18px">
+        <div class="metric">
+          <div class="num">React</div>
+          <div class="lab" data-cn="网页框架" data-en="Web framework">网页框架</div>
+        </div>
+        <div class="metric">
+          <div class="num">Firebase</div>
+          <div class="lab" data-cn="用户登录认证" data-en="User auth">用户登录认证</div>
+        </div>
+        <div class="metric">
+          <div class="num">Motion</div>
+          <div class="lab" data-cn="动画效果" data-en="Animations">动画效果</div>
+        </div>
+        <div class="metric">
+          <div class="num">REST</div>
+          <div class="lab" data-cn="和后端通信" data-en="Talks to backend">和后端通信</div>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:20px">
+        <div class="box">
+          <div class="box-title">React</div>
+          <div class="box-sub" data-cn="现在最流行的网页框架，用来构建所有页面和组件。" data-en="The most popular web framework today. Used to build all pages and components.">现在最流行的网页框架，用来构建所有页面和组件。</div>
+        </div>
+        <div class="box">
+          <div class="box-title">Firebase</div>
+          <div class="box-sub" data-cn="处理用户注册和登录，不用自己写认证逻辑。" data-en="Handles user signup and login. No need to build auth from scratch.">处理用户注册和登录，不用自己写认证逻辑。</div>
+        </div>
+        <div class="box">
+          <div class="box-title">Framer Motion</div>
+          <div class="box-sub" data-cn="给页面加动画，让交互更流畅、更好看。" data-en="Adds smooth animations to make the UI feel polished.">给页面加动画，让交互更流畅、更好看。</div>
+        </div>
+        <div class="box">
+          <div class="box-title">REST API</div>
+          <div class="box-sub" data-cn="前端通过接口和后端通信，部署在 4.155.227.179。" data-en="Frontend talks to backend via APIs, deployed at 4.155.227.179.">前端通过接口和后端通信，部署在 4.155.227.179。</div>
+        </div>
+      </div>
+      <div class="talk">
+        <strong data-cn="可以这样讲：" data-en="One clean way to say it:">可以这样讲：</strong>
+        <span data-cn=" 前端这四个东西各司其职：React 建页面，Firebase 管登录，Motion 做动画，REST 负责和后端说话。" data-en=" These four things each have their own job: React builds the pages, Firebase handles login, Motion adds animation, and REST talks to the backend."> 前端这四个东西各司其职：React 建页面，Firebase 管登录，Motion 做动画，REST 负责和后端说话。</span>
+      </div>
+    </div>
+  </section>
 
-    function showSlide(index){
-      current = Math.max(0, Math.min(slides.length - 1, index));
-      slides.forEach((s,i) => s.classList.toggle('active', i === current));
-      slideNum.textContent = `${current + 1} / ${slides.length}`;
-      footerLabel.textContent = `${lang === 'zh' ? 'Slide' : 'Slide'} ${current + 1} / ${slides.length}`;
-      progress.style.width = `${(current / (slides.length - 1)) * 100}%`;
-      jump.value = String(current);
-      updateNav();
-      location.hash = `s${current}`;
-      document.getElementById('slides').scrollTop = 0;
-    }
+  <!-- ===================== SLIDE 3: Backend & DB Overview (Ming Zhao) ===================== -->
+  <section class="slide" id="s3">
+    <div class="wrap">
+      <div class="speaker-tag star">👤 赵明 · Part 1 · Slide 3/3</div>
+      <h2 data-cn="后端和数据库" data-en="Backend and Database">后端和数据库</h2>
+      <div class="grid2" style="margin-top:18px">
+        <div class="panel">
+          <h3 data-cn="后端" data-en="Backend">后端</h3>
+          <ul class="list">
+            <li><strong>Node.js + Express</strong> — <span data-cn="轻量级服务端框架" data-en="lightweight server framework">轻量级服务端框架</span></li>
+            <li><strong>RESTful API</strong> — <span data-cn="每种操作对应一个接口地址" data-en="each operation has its own URL endpoint">每种操作对应一个接口地址</span></li>
+            <li><strong>mysql2</strong> — <span data-cn="直接执行 SQL 查询，不用 ORM" data-en="runs SQL directly, no ORM needed">直接执行 SQL 查询，不用 ORM</span></li>
+            <li><strong>Port 5000</strong> — <span data-cn="监听端口" data-en="listening port">监听端口</span></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 data-cn="数据库" data-en="Database">数据库</h3>
+          <ul class="list">
+            <li><strong>MySQL 8.0</strong> — <span data-cn="开源关系型数据库" data-en="open-source relational DB">开源关系型数据库</span></li>
+            <li><strong>14 张表</strong> — <span data-cn="涵盖所有功能模块" data-en="covers all functional modules">涵盖所有功能模块</span></li>
+            <li><strong>users + pets</strong> — <span data-cn="两个核心实体，其他模块围绕它们展开" data-en="two core entities, all other modules extend from them">两个核心实体，其他模块围绕它们展开</span></li>
+            <li><strong>7 个功能模块</strong> — <span data-cn="宠物照护、训练、成就、奖励、市场、背包、聊天" data-en="Pet Care, Training, Achievement, Rewards, Marketplace, Inventory, Chat">宠物照护、训练、成就、奖励、市场、背包、聊天</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="module-grid">
+        <div class="module-chip"><div class="m-icon">🐾</div><div class="m-name" data-cn="宠物照护" data-en="Pet Care">宠物照护</div><div class="m-count">2 tables</div></div>
+        <div class="module-chip"><div class="m-icon">🎓</div><div class="m-name" data-cn="训练" data-en="Training">训练</div><div class="m-count">2 tables</div></div>
+        <div class="module-chip"><div class="m-icon">🏆</div><div class="m-name" data-cn="成就" data-en="Achievement">成就</div><div class="m-count">2 tables</div></div>
+        <div class="module-chip"><div class="m-icon">🎁</div><div class="m-name" data-cn="奖励" data-en="Rewards">奖励</div><div class="m-count">2 tables</div></div>
+        <div class="module-chip"><div class="m-icon">🛒</div><div class="m-name" data-cn="市场" data-en="Marketplace">市场</div><div class="m-count">1 table</div></div>
+        <div class="module-chip"><div class="m-icon">🎒</div><div class="m-name" data-cn="背包" data-en="Inventory">背包</div><div class="m-count">1 table</div></div>
+        <div class="module-chip"><div class="m-icon">💬</div><div class="m-name" data-cn="聊天" data-en="Chat">聊天</div><div class="m-count">2 tables</div></div>
+        <div class="module-chip"><div class="m-icon">👤</div><div class="m-name" data-cn="用户+宠物" data-en="User+Pet">用户+宠物</div><div class="m-count">2 tables</div></div>
+      </div>
+      <div class="handoff">
+        <div class="h-label">👇 <span data-cn="交给队友" data-en="Hand off to teammate">交给队友</span></div>
+        <div class="h-text" data-cn="接下来，我的队友会讲后端接口和数据库操作的细节。" data-en="Next, my teammate will cover the backend API design and database operations in detail.">接下来，我的队友会讲后端接口和数据库操作的细节。</div>
+      </div>
+    </div>
+  </section>
 
-    function prevSlide(){ showSlide(current - 1); }
-    function nextSlide(){ showSlide(current + 1); }
+  <!-- ===================== SLIDE 4: API Design (Teammate) ===================== -->
+  <section class="slide" id="s4">
+    <div class="wrap">
+      <div class="speaker-tag">👤 Teammate · Part 2 · Slide 1/3</div>
+      <h2 data-cn="接口设计：前后端怎么对话" data-en="API Design: How Frontend and Backend Talk">接口设计：前后端怎么对话</h2>
+      <p class="lead" data-cn="我们用 RESTful 规范来设计接口。每个操作对应一个独立的 URL 地址。" data-en="We use RESTful standards for all APIs. Every operation maps to its own URL.">我们用 RESTful 规范来设计接口。每个操作对应一个独立的 URL 地址。</p>
+      <div class="grid3" style="margin-top:20px">
+        <div class="timeline">
+          <div class="time" style="font-size:22px">GET /pets</div>
+          <p class="sub" data-cn="查询某只宠物的信息" data-en="Get a pet's information">查询某只宠物的信息</p>
+        </div>
+        <div class="timeline">
+          <div class="time" style="font-size:22px">PUT /pets/:id</div>
+          <p class="sub" data-cn="更新宠物状态" data-en="Update pet status">更新宠物状态</p>
+        </div>
+        <div class="timeline">
+          <div class="time" style="font-size:22px">POST /market</div>
+          <p class="sub" data-cn="发布商品到市场" data-en="Post an item to marketplace">发布商品到市场</p>
+        </div>
+        <div class="timeline">
+          <div class="time" style="font-size:22px">POST /chat</div>
+          <p class="sub" data-cn="发送聊天消息" data-en="Send a chat message">发送聊天消息</p>
+        </div>
+        <div class="timeline">
+          <div class="time" style="font-size:22px">GET /achievements</div>
+          <p class="sub" data-cn="获取成就列表" data-en="Get achievement list">获取成就列表</p>
+        </div>
+        <div class="timeline">
+          <div class="time" style="font-size:22px">POST /rewards/claim</div>
+          <p class="sub" data-cn="领取每日奖励" data-en="Claim daily reward">领取每日奖励</p>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:18px">
+        <p class="lead" data-cn="好处是：前端只管调接口，不用知道数据存在哪、怎么存的。前后端完全分开，改前端不影响后端，反过来也一样。" data-en="The benefit: the frontend just calls the API. It does not need to know where data is stored or how. Frontend and backend are fully separated — changing one does not affect the other.">好处是：前端只管调接口，不用知道数据存在哪、怎么存的。前后端完全分开，改前端不影响后端，反过来也一样。</p>
+      </div>
+    </div>
+  </section>
 
-    navButtons.forEach(btn => btn.addEventListener('click', () => showSlide(Number(btn.dataset.target))));
-    jump.addEventListener('change', e => showSlide(Number(e.target.value)));
-    document.addEventListener('keydown', e => {
-      if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
-      if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+  <!-- ===================== SLIDE 5: mysql2 Operations (Teammate) ===================== -->
+  <section class="slide" id="s5">
+    <div class="wrap">
+      <div class="speaker-tag">👤 Teammate · Part 2 · Slide 2/3</div>
+      <h2 data-cn="数据库操作：安全和稳定" data-en="Database Operations: Safe and Stable">数据库操作：安全和稳定</h2>
+      <div class="grid2" style="margin-top:18px">
+        <div class="panel">
+          <h3 data-cn="参数化查询" data-en="Parameterized Queries">参数化查询</h3>
+          <p class="sub" data-cn="所有查询都用参数拼接，防止 SQL 注入攻击。" data-en="All queries use parameterized拼接 to prevent SQL injection attacks.">所有查询都用参数拼接，防止 SQL 注入攻击。</p>
+          <div style="margin-top:12px;padding:14px;border-radius:14px;background:rgba(0,0,0,.3);font-family:monospace;font-size:13px;color:#34d399;line-height:1.7">
+            db.query(<br>'SELECT * FROM pets<br>WHERE user_id = ?',<br>[userId])<br><span style="color:#f9a8d4">// ? = 用户ID，不会被注入</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 data-cn="连接池" data-en="Connection Pooling">连接池</h3>
+          <p class="sub" data-cn="MySQL 驱动自己管理连接池，多人同时访问也不会崩。" data-en="The MySQL driver manages connection pooling. Multiple users at the same time works fine.">MySQL 驱动自己管理连接池，多人同时访问也不会崩。</p>
+          <div style="margin-top:12px;padding:14px;border-radius:14px;background:rgba(0,0,0,.3);font-family:monospace;font-size:13px;color:#34d399;line-height:1.7">
+            mysql2.createPool({<br>&nbsp;host: 'localhost',<br>&nbsp;database: 'ggbond',<br>&nbsp;waitConnections: true,<br>&nbsp;queueLimit: 0<br>})
+          </div>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:18px">
+        <p class="lead" data-cn="简单说：mysql2 库让我们直接写 SQL 查询，但通过参数化和连接池保证了安全性和并发稳定性。" data-en="Simply put: mysql2 lets us write SQL directly, while parameterized queries and connection pooling guarantee safety and concurrent stability.">简单说：mysql2 库让我们直接写 SQL 查询，但通过参数化和连接池保证了安全性和并发稳定性。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 6: Template-Table Pattern (Teammate) ===================== -->
+  <section class="slide" id="s6">
+    <div class="wrap">
+      <div class="speaker-tag">👤 Teammate · Part 2 · Slide 3/3</div>
+      <h2 data-cn="模板表设计：一份技能，所有狗通用" data-en="Template-Table Pattern: One Skill Set, All Pets Share">模板表设计：一份技能，所有狗通用</h2>
+      <p class="lead" data-cn="这里用了模板表加记录表的设计思路。以训练系统为例：" data-en="We use a template-table plus record-table design. Take the training system as an example:">这里用了模板表加记录表的设计思路。以训练系统为例：</p>
+      <div class="template-visual">
+        <div class="tpl-box">
+          <div class="tpl-head">📋 <span data-cn="模板表" data-en="Template Table">模板表</span></div>
+          <div class="tpl-name">training_skills</div>
+          <div class="tpl-rows">
+            <div class="tpl-row">Sit</div>
+            <div class="tpl-row">Shake Hand</div>
+            <div class="tpl-row">Lie Down</div>
+            <div class="tpl-row">Stay</div>
+          </div>
+          <div class="tpl-note" data-cn="存的是技能定义，所有狗共用一套" data-en="Stores skill definitions, shared by all pets">存的是技能定义，所有狗共用一套</div>
+        </div>
+        <div class="vs-badge">⟷</div>
+        <div class="tpl-box">
+          <div class="tpl-head">📝 <span data-cn="记录表" data-en="Record Table">记录表</span></div>
+          <div class="tpl-name">pet_training_progress</div>
+          <div class="tpl-rows">
+            <div class="tpl-row">Cookie · Sit · done</div>
+            <div class="tpl-row">Cookie · Stay · 60%</div>
+            <div class="tpl-row">Max · Lie Down · done</div>
+          </div>
+          <div class="tpl-note" data-cn="存每只狗的进度，各不相同" data-en="Stores each pet's own progress, different per pet">存每只狗的进度，各不相同</div>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:18px">
+        <div class="box">
+          <div class="box-title">🎯 <span data-cn="好处一：数据不重复" data-en="Benefit 1: No duplicate data">好处一：数据不重复</span></div>
+          <div class="box-sub" data-cn="技能定义只存一份，所有狗都引用它。" data-en="Skill definitions are stored once and referenced by all pets.">技能定义只存一份，所有狗都引用它。</div>
+        </div>
+        <div class="box">
+          <div class="box-title">🧩 <span data-cn="好处二：好扩展" data-en="Benefit 2: Easy to extend">好处二：好扩展</span></div>
+          <div class="box-sub" data-cn="加新技能只改模板表，不用动记录表。" data-en="Adding a new skill only changes the template table, not the record tables.">加新技能只改模板表，不用动记录表。</div>
+        </div>
+      </div>
+      <div class="handoff">
+        <div class="h-label">👇 <span data-cn="交给数据库同学" data-en="Hand off to DB teammate">交给数据库同学</span></div>
+        <div class="h-text" data-cn="说了这么多，那这些表具体长什么样？关系怎么连？接下来交给负责数据库的同学。" data-en=" With all that said, what exactly do these tables look like? How are the relationships connected? Over to our database teammate now.">说了这么多，那这些表具体长什么样？关系怎么连？接下来交给负责数据库的同学。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 7: ER Diagram + Core Entities (DB) ===================== -->
+  <section class="slide" id="s7">
+    <div class="wrap">
+      <div class="speaker-tag green">👤 DB · Part 3 · Slide 1/3</div>
+      <h2 data-cn="数据库设计：两个核心实体向外扩展" data-en="Database Design: Two Core Entities, All Modules Extend Outward">数据库设计：两个核心实体向外扩展</h2>
+      <div class="er-flow">
+        <div class="er-node" style="border-color:rgba(244,114,182,.4);background:rgba(244,114,182,.08)">
+          <div class="e-name">users</div>
+          <div class="e-desc" data-cn="用户账号" data-en="User accounts">用户账号</div>
+        </div>
+        <div class="er-arrow">1 : 1</div>
+        <div class="er-node" style="border-color:rgba(192,132,252,.4);background:rgba(192,132,252,.08)">
+          <div class="e-name">pets</div>
+          <div class="e-desc" data-cn="宠物资料" data-en="Pet profiles">宠物资料</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
+        <p class="sub" style="text-align:center" data-cn="users 表和 pets 表是一对一关系。每个用户有一只宠物，所有其他功能模块都从这两个表向外扩展。" data-en="users and pets have a one-to-one relationship. Each user has one pet, and all other modules extend from these two tables.">users 表和 pets 表是一对一关系。每个用户有一只宠物，所有其他功能模块都从这两个表向外扩展。</p>
+      </div>
+      <div style="margin-top:16px">
+        <p class="sub" style="margin-bottom:12px" data-cn="pets 表包含哪些字段：" data-en="What fields does the pets table contain?">pets 表包含哪些字段：</p>
+        <div class="tag-row">
+          <span class="team-tags"><span>pet name</span></span>
+          <span class="team-tags"><span>breed</span></span>
+          <span class="team-tags"><span>birthday</span></span>
+          <span class="team-tags"><span>health</span></span>
+          <span class="team-tags"><span>happiness</span></span>
+          <span class="team-tags"><span>hunger</span></span>
+        </div>
+      </div>
+      <div class="visual shimmer" style="margin-top:18px">
+        <img src="https://raw.githubusercontent.com/kndhjk/doggy-growth-plan/main/docs/screenshots/ggbond-er-diagram.png" alt="GG Bond ER Diagram" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 8: Core Modules (DB) ===================== -->
+  <section class="slide" id="s8">
+    <div class="wrap">
+      <div class="speaker-tag green">👤 DB · Part 3 · Slide 2/3</div>
+      <h2 data-cn="核心模块：宠物照护、训练、成就" data-en="Core Modules: Pet Care, Training, Achievement">核心模块：宠物照护、训练、成就</h2>
+      <div class="grid3" style="margin-top:18px">
+        <div class="panel">
+          <h3>🐾 <span data-cn="宠物照护系统" data-en="Pet Care System">宠物照护系统</span></h3>
+          <ul class="list" style="margin-top:10px">
+            <li><strong>pet_activities</strong> — <span data-cn="日常活动记录" data-en="Daily activity records">日常活动记录</span></li>
+            <li><strong>health_records</strong> — <span data-cn="健康和医疗历史" data-en="Health & medical history">健康和医疗历史</span></li>
+          </ul>
+          <p class="sub" style="margin-top:10px" data-cn="喂食、散步、玩耍、看兽医等都记录在这里。" data-en="Feeding, walking, playing, vet visits — all recorded here.">喂食、散步、玩耍、看兽医等都记录在这里。</p>
+        </div>
+        <div class="panel">
+          <h3>🎓 <span data-cn="训练系统" data-en="Training System">训练系统</span></h3>
+          <ul class="list" style="margin-top:10px">
+            <li><strong>training_skills</strong> — <span data-cn="技能模板" data-en="Skill templates">技能模板</span></li>
+            <li><strong>pet_training_progress</strong> — <span data-cn="每只狗的进度" data-en="Each pet's progress">每只狗的进度</span></li>
+          </ul>
+          <p class="sub" style="margin-top:10px" data-cn="模板表存技能定义，记录表存每只狗学到哪了。" data-en="Template table stores skills; record table stores each pet's progress.">模板表存技能定义，记录表存每只狗学到哪了。</p>
+        </div>
+        <div class="panel">
+          <h3>🏆 <span data-cn="成就系统" data-en="Achievement System">成就系统</span></h3>
+          <ul class="list" style="margin-top:10px">
+            <li><strong>achievements</strong> — <span data-cn="成就定义" data-en="Achievement definitions">成就定义</span></li>
+            <li><strong>pet_achievements</strong> — <span data-cn="解锁记录" data-en="Unlock records">解锁记录</span></li>
+          </ul>
+          <p class="sub" style="margin-top:10px" data-cn="First Meal、First Walk、Brave Pup 等都从这里来。" data-en="First Meal, First Walk, Brave Pup — all come from here.">First Meal、First Walk、Brave Pup 等都从这里来。</p>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:16px">
+        <p class="lead" data-cn="共同点：都用了模板表加记录表结构。这种设计让数据可以复用，系统也更容易扩展。" data-en="Common pattern: all three use template-table plus record-table structure. This makes data reusable and the system easier to extend.">共同点：都用了模板表加记录表结构。这种设计让数据可以复用，系统也更容易扩展。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 9: Other Modules + Closing (DB) ===================== -->
+  <section class="slide" id="s9">
+    <div class="wrap">
+      <div class="speaker-tag green">👤 DB · Part 3 · Slide 3/3</div>
+      <h2 data-cn="其他模块和整体关系" data-en="Other Modules and Key Relationships">其他模块和整体关系</h2>
+      <div class="grid2" style="margin-top:18px">
+        <div class="panel">
+          <h3>🎁 <span data-cn="每日奖励" data-en="Daily Rewards">每日奖励</span></h3>
+          <ul class="list">
+            <li><strong>daily_rewards</strong> — <span data-cn="奖励模板，第1天金币、第2天食物…" data-en="Reward templates, Day1 coins, Day2 food…">奖励模板，第1天金币、第2天食物…</span></li>
+            <li><strong>user_reward_claims</strong> — <span data-cn="每个用户的领取记录" data-en="Each user's claim history">每个用户的领取记录</span></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>🛒 <span data-cn="市场 + 背包" data-en="Marketplace + Inventory">市场 + 背包</span></h3>
+          <ul class="list">
+            <li><strong>marketplace_listings</strong> — <span data-cn="用户发布的商品" data-en="Items users post for sale">用户发布的商品</span></li>
+            <li><strong>inventory</strong> — <span data-cn="用户拥有的物品" data-en="Items owned by a user">用户拥有的物品</span></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>💬 <span data-cn="聊天系统" data-en="Chat System">聊天系统</span></h3>
+          <ul class="list">
+            <li><strong>conversations</strong> — <span data-cn="会话容器" data-en="Conversation container">会话容器</span></li>
+            <li><strong>messages</strong> — <span data-cn="具体消息" data-en="Individual messages">具体消息</span></li>
+          </ul>
+          <p class="sub" style="margin-top:8px" data-cn="M:M 用户参与会话，1:M 会话包含消息。" data-en="M:M users participate in conversations, 1:M conversations contain messages.">M:M 用户参与会话，1:M 会话包含消息。</p>
+        </div>
+        <div class="panel">
+          <h3>📊 <span data-cn="全貌总结" data-en="Full Picture Summary">全貌总结</span></h3>
+          <ul class="list">
+            <li data-cn="总计 14 张表，7 个功能模块" data-en="14 tables total, 7 functional modules">总计 14 张表，7 个功能模块</li>
+            <li data-cn="users 和 pets 是核心，其他模块向外扩展" data-en="users and pets are the core, other modules extend outward">users 和 pets 是核心，其他模块向外扩展</li>
+            <li data-cn="模板表+记录表用于训练、成就、奖励三个系统" data-en="Template-record pattern used in Training, Achievement, and Rewards">模板表+记录表用于训练、成就、奖励三个系统</li>
+            <li data-cn="模块之间低耦合，便于单独开发和扩展" data-en="Low coupling between modules, easy to develop and extend separately">模块之间低耦合，便于单独开发和扩展</li>
+          </ul>
+        </div>
+      </div>
+      <div class="quote" style="margin-top:16px">
+        <p class="lead" data-cn="这就是 GG Bond 的完整数据库设计。14 张表围绕 users 和 pets 两个核心，7 个模块各司其职，模块之间低耦合、易扩展。" data-en="That is the complete database design for GG Bond. 14 tables centered around users and pets, 7 modules each doing their own job, low coupling and easy to extend.">这就是 GG Bond 的完整数据库设计。14 张表围绕 users 和 pets 两个核心，7 个模块各司其职，模块之间低耦合、易扩展。</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer-bar">
+  <div class="footer-left">GG Bond · <span id="footerLabel">Slide 1 / 11</span></div>
+  <div class="pager">
+    <button class="icon-btn" onclick="prevSlide()">‹</button>
+    <div class="slide-num" id="slideNum">1 / 11</div>
+    <button class="icon-btn" onclick="nextSlide()">›</button>
+  </div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const jump = document.getElementById('jump');
+  const progress = document.getElementById('progress');
+  const slideNum = document.getElementById('slideNum');
+  const footerLabel = document.getElementById('footerLabel');
+  const navButtons = Array.from(document.querySelectorAll('.nav button'));
+  let current = 0;
+  let lang = 'zh';
+
+  const labels = [
+    ['开场 / Opening','Opening'],
+    ['三层架构','Three Layers'],
+    ['前端技术栈','Frontend'],
+    ['后端与数据库','Backend + DB'],
+    ['接口设计','API Design'],
+    ['数据库操作','DB Operations'],
+    ['模板表设计','Template Tables'],
+    ['核心实体','Core Entities'],
+    ['核心模块','Core Modules'],
+    ['其他模块','Other Modules'],
+    ['数据库总结','DB Summary']
+  ];
+
+  function populateJump(){
+    jump.innerHTML = '';
+    labels.forEach((pair, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${i+1}. ${lang === 'zh' ? pair[0] : pair[1]}`;
+      jump.appendChild(opt);
     });
+  }
 
-    function setLang(next){
-      lang = next;
-      document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
-      document.getElementById('zhBtn').classList.toggle('active', next === 'zh');
-      document.getElementById('enBtn').classList.toggle('active', next === 'en');
-      document.querySelectorAll('[data-cn][data-en]').forEach(el => {
-        el.textContent = el.getAttribute(next === 'zh' ? 'data-cn' : 'data-en');
-      });
-      populateJump();
-      showSlide(current);
-      try{ localStorage.setItem('ggbond-slide-lang', next); }catch(e){}
-    }
+  function updateNav(){
+    navButtons.forEach(btn => btn.classList.remove('active'));
+    const breaks = {0:0, 1:1, 4:4, 7:7};
+    let activeTarget = 0;
+    for(const [k, v] of Object.entries(breaks)) if(current >= Number(k)) activeTarget = v;
+    const targetBtn = navButtons.find(btn => Number(btn.dataset.target) === activeTarget);
+    if(targetBtn) targetBtn.classList.add('active');
+  }
 
+  function showSlide(index){
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((s,i) => s.classList.toggle('active', i === current));
+    slideNum.textContent = `${current + 1} / ${slides.length}`;
+    footerLabel.textContent = `Slide ${current + 1} / ${slides.length}`;
+    progress.style.width = `${(current / (slides.length - 1)) * 100}%`;
+    jump.value = String(current);
+    updateNav();
+    location.hash = `s${current}`;
+    document.getElementById('slides').scrollTop = 0;
+  }
+
+  function prevSlide(){ showSlide(current - 1); }
+  function nextSlide(){ showSlide(current + 1); }
+
+  navButtons.forEach(btn => btn.addEventListener('click', () => showSlide(Number(btn.dataset.target))));
+  jump.addEventListener('change', e => showSlide(Number(e.target.value)));
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  function setLang(next){
+    lang = next;
+    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+    document.getElementById('zhBtn').classList.toggle('active', next === 'zh');
+    document.getElementById('enBtn').classList.toggle('active', next === 'en');
+    document.querySelectorAll('[data-cn][data-en]').forEach(el => {
+      el.textContent = el.getAttribute(next === 'zh' ? 'data-cn' : 'data-en');
+    });
     populateJump();
-    const match = location.hash.match(/s(\d+)/);
-    const initial = match ? Number(match[1]) : 0;
-    try{ const saved = localStorage.getItem('ggbond-slide-lang'); if(saved === 'en') lang = 'en'; }catch(e){}
-    setLang(lang);
-    showSlide(initial);
-  </script>
+    showSlide(current);
+    try{ localStorage.setItem('ggbond-arch-lang', next); }catch(e){}
+  }
+
+  populateJump();
+  const match = location.hash.match(/s(\d+)/);
+  const initial = match ? Number(match[1]) : 0;
+  try{ const saved = localStorage.getItem('ggbond-arch-lang'); if(saved === 'en') lang = 'en'; }catch(e){}
+  setLang(lang);
+  showSlide(initial);
+</script>
 </body>
 </html>
